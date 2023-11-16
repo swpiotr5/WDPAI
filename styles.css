@@ -36,6 +36,21 @@ body{
     padding: 1rem;
 }
 
+.navbar div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-bell{
+    font-size: 24px;
+}
+
+.fa-bell:hover{
+    transform: scale(1.1);
+    color: rgba(18, 63, 108, 1);
+}
+
 .navbar a {
     text-decoration: none;
     color: rgba(255, 255, 255, 1);
@@ -83,9 +98,6 @@ body{
     border-bottom: rgba(18, 63, 108, 1);
 }
 
-
-
-
 footer{
     display: flex;
     justify-content: center;
@@ -115,6 +127,9 @@ footer p{
         flex-direction: column;
         background-color: rgba(18, 63, 108, 1);
     }
+    .fa-bell{
+        display: none;
+    }
     .navbar-toggle{
         display: block;
         align-self: flex-start;
@@ -123,6 +138,7 @@ footer p{
         display: none;
         width: 100%;
         text-align: center;
+        height: 0;
     }
     .navbar-links a {
         display: block;
@@ -136,7 +152,7 @@ footer p{
         display: block;
     }
     .active{
-        display:block;
+        display: block;
     }
     .navbar-links.active {
         max-height: 200px; /* Adjust the max-height as needed */
