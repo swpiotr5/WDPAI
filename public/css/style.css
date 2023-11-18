@@ -1,0 +1,561 @@
+/* resetowanie */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+/* ustawienia glowne strony */
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: rgba(18, 63, 108, 1);
+	height: 100%;
+	overflow: auto;
+}
+
+/* wrapper calej strony */
+.wrapper {
+	display: flex;
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	background-color: rgba(16, 39, 62, 1);
+	height: 80%;
+	width: 70%;
+	max-width: 1500px;
+	border-radius: 1%;
+	box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.5);
+	overflow: hidden;
+}
+/* lewa sekcja - widoczna na desktopie */
+.wrapper .left img {
+	position: absolute;
+	width: 40%;
+	height: auto;
+	/* Możesz dostosować wartość wysokości do preferencji */
+	top: 50%;
+	left: 5%;
+	transform: translateY(-50%);
+	object-fit: contain;
+	filter: grayscale(50%);
+	animation: float-main-wizard 6s ease-out infinite;
+}
+
+@keyframes float-main-wizard {
+	0% {
+		transform: translateY(-50%);
+	}
+	50% {
+		transform: translateY(-65%);
+	}
+	100% {
+		transform: translateY(-50%);
+	}
+}
+
+.flip-container {
+	width: 50%;
+	height: 100%;
+	position: relative;
+	perspective: 1000;
+}
+
+#flipper {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	transition: 0.6s;
+	transform-style: preserve-3d;
+}
+
+.login .left {
+	width: 50%;
+	height: 100%;
+	/* opacity: 0.5; */
+}
+
+/* prawa sekcja - staje się główną na mniejszych urządzeniach */
+.login .right {
+	display: flex;
+	align-items:normal; /* vertical centering if flex-direction: row */
+	justify-content: center; /* horizontal centering if flex-direction: row */
+	width: 100%;
+	height: 100%;
+	/* opacity: 0.5; */
+	order: 2;
+}
+
+.login .right-back {
+	display: flex;
+	align-items: flex-start; /* vertical centering if flex-direction: row */
+	justify-content: center; /* horizontal centering if flex-direction: row */
+	width: 100%;
+	height: 100%;
+	order: 2;
+}
+.login .right,
+.login .right-back {
+	/*background-color: rgba(0,0,0,.3);*/
+	position: absolute;
+	padding: 10px 30px;
+	top: 0;
+	left: 0;
+	right: 0;
+	backface-visibility: hidden;
+}
+
+.login .right {
+	z-index: 2;
+	transform: rotateY(0deg);
+}
+
+.login .right-back {
+	transform: rotateY(180deg);
+}
+
+.flip {
+	transform: rotateY(180deg);
+}
+
+.brand-wrapper {
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 5%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.brand-wrapper .brand-name {
+	font-size: 30px;
+	display: block;
+	color: aliceblue;
+}
+
+.brand-wrapper .logo-near-brand-name {
+	width: 60px;
+}
+
+.logo {
+	/* top: 0%; */
+	display: none;
+	width: 200px;
+	height: auto;
+	animation: float-logo 6s ease-out infinite;
+}
+
+@keyframes float-logo {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(15px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+/* formularz logowania  */
+form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 80%;
+	width: 85%;
+	background-color: rgba(18, 63, 108, 1);
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 55%;
+	left: 50%;
+	border-radius: 10px;
+	backdrop-filter: blur(10px);
+	border: 2px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+	padding: 40px 35px 60px;
+}
+
+.register-form {
+	padding: 30px 35px 30px;
+}
+
+form * {
+	color: #ffffff;
+	letter-spacing: 0.5px;
+	outline: none;
+	border: none;
+}
+form h3 {
+	font-size: 32px;
+	font-weight: 500;
+	line-height: 32px;
+	text-align: center;
+}
+
+form .forgot-passwd {
+	margin-top: 10px;
+	margin-left: auto;
+	text-decoration: none;
+	color: aliceblue;
+}
+
+form .forgot-passwd:hover {
+	color: rgba(16, 39, 62, 1);
+	transition: color 0.2s ease;
+}
+
+form .sign-up {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px; /* Dodajemy odstęp od poprzedniego elementu */
+	text-decoration: none;
+}
+
+form .sign-up:hover {
+	color: rgba(16, 39, 62, 1);
+	transition: color 0.2s ease;
+}
+
+/* .register-form {
+	display: none;
+} */
+
+label {
+	display: block;
+	margin-top: 20px;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+input {
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	width: 100%;
+	background-color: rgba(255, 255, 255, 0.07);
+	border-radius: 3px;
+	padding: 20px 10px;
+	margin-top: 8px;
+	font-size: 14px;
+	font-weight: 300;
+}
+
+::placeholder {
+	color: #e5e5e5;
+}
+button {
+	margin-top: 40px;
+	width: 100%;
+	background-color: #ffffff;
+	color: #080710;
+	padding: 15px 0;
+	font-size: 18px;
+	font-weight: 600;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: rgba(16, 39, 62, 1);
+	color: aliceblue;
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.wizard-mobile-down {
+	position: absolute;
+	bottom: -5%;
+	width: 100%;
+	max-height: 300px;
+	z-index: -2;
+	opacity: 0.1;
+}
+
+.wizard-mobile-down {
+	display: none;
+}
+
+
+@media (max-width: 1024px){
+	.wrapper{
+		overflow: auto;
+	}
+
+	.login .left {
+		display: none;
+	}
+	.login .right {
+		display: flex;
+		width: 100%;
+		height: 100%;
+	}
+	form {
+		background-color: rgba(255, 255, 255, 0);
+		width: 90%;
+		border-radius: 10px;
+		backdrop-filter: none;
+		border: none;
+		box-shadow: none;
+		height: 100%;
+	}
+
+	.flip-container {
+		width: 100%;
+	}
+
+	.brand-wrapper {
+		display: none;
+	}
+	.wrapper {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		align-items: center;
+		justify-content: center;
+	}
+	.wrapper .right {
+		position: relative;
+	}
+
+	.logo {
+		position: absolute;
+		width: 300px;
+		display: block;
+	}
+
+	form {
+		height: 60vh;
+		padding: 50px 35px 50px;
+	}
+
+	form .forgot-passwd {
+		display: block;
+		text-decoration: none;
+		color: aliceblue;
+	}
+
+	form .forgot-passwd:hover {
+		color: rgb(22, 79, 135);
+		transition: color 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	form .sign-up {
+		text-decoration: none;
+	}
+
+	form .sign-up:hover {
+		color: rgb(22, 79, 135);
+		transition: color 0.2s ease, box-shadow 0.2s ease;
+	}
+}
+
+@media (max-width: 480px){
+	form * {
+		font-size: 14px;
+	}
+	input {
+		height: 50px;
+		line-height: 50px;
+		width: 100%;
+	}
+
+	form {
+		height: 60vh;
+	}
+
+	button {
+		margin-top: 50px;
+		width: 100%;
+	}
+
+	.logo{
+		width: 150px;
+	}
+
+	.register-form button {
+		margin-top: 50px;
+	}
+
+	.right-back {
+		position: relative;
+		height: 100vh;
+	}
+
+	form.register-form {
+		height: 60vh;
+		align-items: center;
+	}
+
+	.right-back .logo {
+		display: none;
+	}
+
+	.wrapper {
+		width: 100%;
+		height: 100%;
+	}
+
+	.right-back h3 {
+		font-size: 25px;
+	}
+	.flip-container{
+		overflow: auto;
+	}
+	.right .wizard-mobile-down {
+		display: block;
+	}
+}
+
+@media (orientation: landscape){
+	.logo{
+		display: none;
+	}
+}
+
+/* 
+@media (max-width: 600px){
+	form * {
+		font-size: 14px;
+	}
+	input {
+		height: 50px;
+		line-height: 50px;
+		width: 100%;
+	}
+
+	form {
+		height: 60vh;
+	}
+
+	button {
+		margin-top: 50px;
+		width: 100%;
+	}
+
+	.register-form button {
+		margin-top: 50px;
+	}
+
+	.right-back {
+		position: relative;
+		height: 100vh;
+	}
+
+	form.register-form {
+		height: 60vh;
+		align-items: center;
+	}
+
+	.right-back .logo {
+		display: none;
+	}
+
+	.wrapper {
+		width: 100%;
+		height: 100%;
+	}
+
+	.right-back h3 {
+		font-size: 25px;
+	}
+	.flip-container{
+		overflow: auto;
+	}
+} */
+/* 
+@media (max-width: 1000px) or (orientation: portrait) {
+	.login .left {
+		display: none;
+	}
+	.login .right {
+		display: flex;
+		width: 100%;
+		height: 100%;
+	}
+	form {
+		background-color: rgba(255, 255, 255, 0);
+		width: 90%;
+		border-radius: 10px;
+		backdrop-filter: none;
+		border: none;
+		box-shadow: none;
+		height: 100%;
+	}
+
+	.flip-container {
+		width: 100%;
+	}
+
+	.brand-wrapper {
+		display: none;
+	}
+	.wrapper {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		align-items: center;
+		justify-content: center;
+	}
+	.wrapper .right {
+		position: relative;
+	}
+
+	.logo {
+		position: absolute;
+		display: block;
+	}
+
+	form {
+		height: 60vh;
+		padding: 50px 35px 50px;
+	}
+
+	form .forgot-passwd {
+		display: block;
+		text-decoration: none;
+		color: aliceblue;
+	}
+
+	form .forgot-passwd:hover {
+		color: rgb(22, 79, 135);
+		transition: color 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	form .sign-up {
+		text-decoration: none;
+	}
+
+	form .sign-up:hover {
+		color: rgb(22, 79, 135);
+		transition: color 0.2s ease, box-shadow 0.2s ease;
+	}
+} */
+
+/* @media (max-height: 500px) {
+	.right {
+		overflow-x: auto;
+		overflow-y: hidden;
+	}
+	form {
+		top: 40%;
+	}
+
+	.logo {
+		display: none;
+	}
+} */
+/* 
+@media (min-width: 600px) {
+	.logo {
+		width: 250px;
+		height: auto;
+	}
+	.wizard-mobile-down {
+		display: none;
+	}
+} */
