@@ -1,4 +1,4 @@
-FROM postgres
+FROM postgres:latest
 
 ENV POSTGRES_PASSWORD docker
 # nazwa bazy

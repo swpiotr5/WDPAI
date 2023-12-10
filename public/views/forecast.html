@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="public\css\navbar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ee62767aeb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div class="wrapper">
+            <div class="navbar">
+                <div class="logo"><img src="public\img\logo.png" alt=""></div>
+                <ul class="links">
+                    <li><a href="forecast">forecast</a></li>
+                    <li><a href="location">location</a></li>
+                    <li><a href="active">active</a></li>
+                    <li><a href="wardrobe">wardrobe</a></li>
+                </ul>
+                <div class="user-logo"><img src="public\img\user.png" alt=""></div>
+                <div class="toggle-btn"><i class="fa-solid fa-bars"></i></div>
+            </div>
+            <div class="dropdown-menu">
+                <li><a href="forecast">forecast</a></li>
+                <li><a href="location">location</a></li>
+                <li><a href="active">active</a></li>
+                <li><a href="wardrobe">wardrobe</a></li>
+            </div>
+        </div>
+
+    </header>
+
+    <script>
+        const toggleBtn = document.querySelector('.toggle-btn')
+        const toggleBtnIcon = document.querySelector('.toggle-btn i')
+        const dropDownMenu = document.querySelector('.dropdown-menu')
+
+        toggleBtn.onclick = function () {
+            dropDownMenu.classList.toggle('open')
+            const isOpen = dropDownMenu.classList.contains('open')
+
+            toggleBtnIcon.classList = isOpen
+                ? 'fa-solid fa-xmark'
+                : 'fa-solid fa-bars'
+
+        }
+    </script>
+</body>

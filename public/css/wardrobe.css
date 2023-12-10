@@ -1,0 +1,102 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', sans-serif;
+}
+
+.main-section {
+	background-color: rgba(18, 63, 108, 1);
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	top: 45%;
+	left: 50%;
+	max-width: 1000px;
+	transform: translate(-50%, -50%);
+	width: 80%;
+	height: auto;
+	border-radius: 10px;
+	z-index: -1;
+	overflow: auto;
+	padding: 30px;
+}
+
+.text-section {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 10%;
+	color: aliceblue;
+	font-size: 1.5rem;
+}
+
+.clothing-section {
+	height: 90%;
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(5, minmax(50px, 1fr));
+	grid-template-rows: repeat(15);
+	margin-bottom: 10px;
+}
+
+.clothes {
+	display: flex;
+	flex-direction: column;
+	background-color: rgba(16, 39, 62, 1);
+	min-width: 150px;
+	max-width: 200px;
+	/* height: auto; */
+	margin: 5px;
+	padding: 7px;
+	border-radius: 10px;
+}
+
+.clothes .item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+
+.clothes .item label {
+	margin: 0 auto;
+}
+
+.clothes .item label img {
+	width: 70px;
+	max-width: 100px;
+}
+
+.clothes .item p {
+	color: aliceblue;
+	text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+	.text-section {
+		font-size: 2.5rem;
+		padding: 40px;
+		margin: 20px;
+	}
+	.clothing-section {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(50px, 1fr));
+		grid-template-rows: repeat(15);
+	}
+	.main-section {
+		width: 100%;
+		background-color: rgba(16, 39, 62, 1);
+	}
+	.clothes {
+		min-width: 100px;
+		background-color: rgba(18, 63, 108, 1);
+	}
+}
+
+@media (max-width: 576px) {
+	.text-section {
+		font-size: 1.5rem;
+	}
+}

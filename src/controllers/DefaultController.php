@@ -12,4 +12,16 @@ class DefaultController extends AppController{
         // TODO display projects.html
         $this->render('forecast');
     }
+
+    public function location(){
+        $this->render('location');
+    }
+
+    public function active(){
+        $this->render('active');
+    }
+
+    public function wardrobe(){
+        $this->render('wardrobe');
+    }
 }

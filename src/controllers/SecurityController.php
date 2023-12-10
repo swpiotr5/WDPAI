@@ -1,6 +1,7 @@
 <?php
+require_once "AppController.php";
 
-class SecurityController
+class SecurityController extends AppController
 {
 
 }

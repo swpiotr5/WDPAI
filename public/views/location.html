@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="public/css/style.css"> -->
+    <link rel="stylesheet" href="public/css/location.css">
+    <link rel="stylesheet" href="public\css\navbar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ee62767aeb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div class="wrapper">
+            <div class="navbar">
+                <div class="logo"><img src="public\img\logo.png" alt=""></div>
+                <ul class="links">
+                    <li><a href="forecast">forecast</a></li>
+                    <li><a href="location">location</a></li>
+                    <li><a href="active">active</a></li>
+                    <li><a href="wardrobe">wardrobe</a></li>
+                </ul>
+                <div class="user-logo"><img src="public\img\user.png" alt=""></div>
+                <div class="toggle-btn"><i class="fa-solid fa-bars"></i></div>
+            </div>
+            <div class="dropdown-menu">
+                <li><a href="forecast">forecast</a></li>
+                <li><a href="location">location</a></li>
+                <li><a href="active">active</a></li>
+                <li><a href="wardrobe">wardrobe</a></li>
+            </div>
+
+            <div class="main-frame">
+                <div class="text-area">
+                    <p>Welcome *Username*!</p>
+                    <p>Choose your location</p>
+                </div>
+                <div class="user-logo-area"><img src="public\img\user.png" alt=""></div>
+                <div class="location-input-area">
+                    <div class="btn"><button id="get-curr-location">Use my current location</button></div>
+                    <div class="input"><input type="text" id="locationInput" placeholder="Enter a location"></div>
+                    <div class="location"><button id="get-location-btn" role="button">Get Location</button></div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <script>
+        const toggleBtn = document.querySelector('.toggle-btn')
+        const toggleBtnIcon = document.querySelector('.toggle-btn i')
+        const dropDownMenu = document.querySelector('.dropdown-menu')
+
+        toggleBtn.onclick = function () {
+            dropDownMenu.classList.toggle('open')
+            const isOpen = dropDownMenu.classList.contains('open')
+
+            toggleBtnIcon.classList = isOpen
+                ? 'fa-solid fa-xmark'
+                : 'fa-solid fa-bars'
+
+        }
+
+        function getUserLocation() {
+            if ("geolocation" in navigator) {
+                // Jeśli przeglądarka obsługuje geolokalizację
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // Pobierz współrzędne
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Tutaj można wykorzystać pobrane współrzędne do dalszych działań
+                    // console.log("Latitude:", latitude);
+                    // console.log("Longitude:", longitude);
+                }, function(error) {
+                    // Obsługa błędów
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            console.error("User denied the request for Geolocation.");
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            console.error("Location information is unavailable.");
+                            break;
+                        case error.TIMEOUT:
+                            console.error("The request to get user location timed out.");
+                            break;
+                        case error.UNKNOWN_ERROR:
+                            console.error("An unknown error occurred.");
+                            break;
+                    }
+                });
+            } else {
+                // Jeśli przeglądarka nie obsługuje geolokalizacji
+                console.error("Geolocation is not supported by this browser.");
+            }
+        }
+
+        // Obsługa kliknięcia przycisku "Use my current location"
+        const getCurrLocation = document.getElementById('get-curr-location');
+        if (getCurrLocation) {
+            getCurrLocation.addEventListener('click', getUserLocation);
+        }
+
+        function getLocationFromAddress(address) {
+            // Tutaj można użyć zewnętrznego API do geokodowania, np. Google Maps Geocoding API
+            // W tym przykładzie używamy konsoli do wyświetlenia wpisanej lokalizacji
+            console.log("Location entered:", address);
+            // Tutaj można użyć pobranej lokalizacji do dalszych działań związanych z geokodowaniem
+            // Należy skorzystać z odpowiedniego API, aby uzyskać współrzędne lub inne informacje na podstawie wprowadzonej lokalizacji
+        }
+
+        // Funkcja obsługująca kliknięcie przycisku "Get Location"
+        function handleLocationButtonClick() {
+            const locationInput = document.getElementById('locationInput');
+            const address = locationInput.value;
+
+            getLocationFromAddress(address);
+        }
+
+        // Obsługa kliknięcia przycisku "Get Location"
+        const getLocationBtn = document.getElementById('get-location-btn');
+        if (getLocationBtn) {
+            getLocationBtn.addEventListener('click', handleLocationButtonClick);
+        }
+    </script>
+</body>

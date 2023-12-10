@@ -1,0 +1,159 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: rgba(18, 63, 108, 1);
+	height: 100%;
+	overflow: auto;
+}
+
+.wrapper {
+	display: flex;
+	margin: 0;
+	position: relative;
+	flex-direction: column;
+	/* top: 50%; */
+	left: 50%;
+	padding-top: 20px;
+	transform: translateX(-50%);
+	/* -ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%); */
+	background-color: rgba(16, 39, 62, 1);
+	height: 100vh;
+	width: 100%;
+	max-width: 2000px;
+	border-radius: 1%;
+	box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.5);
+	overflow: hidden;
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: aliceblue;
+	text-transform: uppercase;
+	font-size: 1.2rem;
+}
+
+a:hover {
+	color: rgba(18, 63, 108, 1);
+}
+
+/* HEADER */
+
+header {
+	position: relative;
+	padding: 0 2rem;
+}
+
+.navbar {
+	width: 100%;
+	height: 60px;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.navbar .logo img {
+	margin-left: 20px;
+	width: 60px;
+}
+
+.navbar .user-logo img {
+	margin-right: 20px;
+	width: 50px;
+}
+
+.navbar .user-logo:hover img {
+	scale: 1.05;
+}
+
+.navbar .links {
+	display: flex;
+	gap: 8rem;
+}
+
+.navbar .toggle-btn {
+	color: aliceblue;
+	z-index: 999;
+	font-size: 3rem;
+	cursor: pointer;
+	display: none;
+	padding: 0 20px;
+}
+
+/* dropdown menu */
+
+.dropdown-menu {
+	display: none;
+	position: fixed;
+	left: 2rem;
+	top: 60px;
+	height: 0;
+	width: 300px;
+	background: rgba(18, 63, 108, 1);
+	backdrop-filter: blur(15px);
+	border-radius: 10px;
+	overflow: hidden;
+	transition: height 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.dropdown-menu.open {
+	height: 240px;
+	border: 1px solid black;
+}
+
+.dropdown-menu li {
+	padding: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.clothes input{
+	width: 20px;
+	margin: 10px 10px;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+	.navbar .links,
+	.navbar .logo,
+	.navbar .user-logo {
+		display: none;
+	}
+	.wrapper {
+		width: 100vw;
+	}
+
+	.navbar .toggle-btn {
+		display: block;
+	}
+
+	.dropdown-menu {
+		display: block;
+	}
+
+	.main-frame {
+		background-color: rgba(16, 39, 62, 1);
+	}
+}
+
+@media (max-width: 576px) {
+	.dropdown-menu {
+		right: 2rem;
+		width: unset;
+	}
+	.navbar .toggle-btn {
+		font-size: 2rem;
+	}
+}

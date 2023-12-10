@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 services:
   web:
@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: docker/nginx/Dockerfile
     ports:
-      - "8080:80"
+      - '8080:80'
     volumes:
       - .:/app/
     links:
@@ -24,29 +24,30 @@ services:
       - wdpai-network
 
   db:
-    container_name: pg_container
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: wdpai
+    build:
+      context: .
+      dockerfile: docker/db/Dockerfile
     ports:
-      - "5432:5432"
+      - '5433:5432'
     networks:
-      - wdpai-network
+      - pg-network
+    volumes:
+      - pg-data:/var/lib/postgresql/data
 
   pgadmin:
-    container_name: pgadmin4_container
-    image: dpage/pgadmin4
-    restart: always
+    image: dpage/pgadmin4:latest
+    container_name: pg-admin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_DEFAULT_EMAIL: w2wwizard@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: adminhaslo
     ports:
-      - "5050:80"
+      - '5050:80'
     networks:
-      - wdpai-network
+      - pg-network
 
 networks:
   wdpai-network:
+  pg-network:
+
+volumes:
+  pg-data:

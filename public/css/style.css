@@ -1,10 +1,9 @@
-/* resetowanie */
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
-/* ustawienia glowne strony */
+
 body {
 	font-family: 'Roboto', sans-serif;
 	background-color: rgba(18, 63, 108, 1);
@@ -12,7 +11,6 @@ body {
 	overflow: auto;
 }
 
-/* wrapper calej strony */
 .wrapper {
 	display: flex;
 	margin: 0;
@@ -22,19 +20,19 @@ body {
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	background-color: rgba(16, 39, 62, 1);
-	height: 80%;
-	width: 70%;
-	max-width: 1500px;
+	height: 100%;
+	width: 100%;
+	max-width: 2000px;
 	border-radius: 1%;
 	box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.5);
 	overflow: hidden;
 }
-/* lewa sekcja - widoczna na desktopie */
+
 .wrapper .left img {
 	position: absolute;
 	width: 40%;
 	height: auto;
-	/* Możesz dostosować wartość wysokości do preferencji */
+
 	top: 50%;
 	left: 5%;
 	transform: translateY(-50%);
@@ -73,31 +71,27 @@ body {
 .login .left {
 	width: 50%;
 	height: 100%;
-	/* opacity: 0.5; */
 }
 
-/* prawa sekcja - staje się główną na mniejszych urządzeniach */
 .login .right {
 	display: flex;
-	align-items:normal; /* vertical centering if flex-direction: row */
-	justify-content: center; /* horizontal centering if flex-direction: row */
+	align-items: normal;
+	justify-content: center;
 	width: 100%;
 	height: 100%;
-	/* opacity: 0.5; */
 	order: 2;
 }
 
 .login .right-back {
 	display: flex;
-	align-items: flex-start; /* vertical centering if flex-direction: row */
-	justify-content: center; /* horizontal centering if flex-direction: row */
+	align-items: flex-start;
+	justify-content: center;
 	width: 100%;
 	height: 100%;
 	order: 2;
 }
 .login .right,
 .login .right-back {
-	/*background-color: rgba(0,0,0,.3);*/
 	position: absolute;
 	padding: 10px 30px;
 	top: 0;
@@ -143,7 +137,6 @@ body {
 }
 
 .logo {
-	/* top: 0%; */
 	display: none;
 	width: 200px;
 	height: auto;
@@ -162,7 +155,6 @@ body {
 	}
 }
 
-/* formularz logowania  */
 form {
 	display: flex;
 	flex-direction: column;
@@ -213,7 +205,7 @@ form .forgot-passwd:hover {
 form .sign-up {
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 10px; /* Dodajemy odstęp od poprzedniego elementu */
+	margin-top: 10px;
 	text-decoration: none;
 }
 
@@ -221,10 +213,6 @@ form .sign-up:hover {
 	color: rgba(16, 39, 62, 1);
 	transition: color 0.2s ease;
 }
-
-/* .register-form {
-	display: none;
-} */
 
 label {
 	display: block;
@@ -280,9 +268,8 @@ button:hover {
 	display: none;
 }
 
-
-@media (max-width: 1024px){
-	.wrapper{
+@media (max-width: 1024px) {
+	.wrapper {
 		overflow: auto;
 	}
 
@@ -354,7 +341,7 @@ button:hover {
 	}
 }
 
-@media (max-width: 480px){
+@media (max-width: 480px) {
 	form * {
 		font-size: 14px;
 	}
@@ -373,7 +360,7 @@ button:hover {
 		width: 100%;
 	}
 
-	.logo{
+	.logo {
 		width: 150px;
 	}
 
@@ -403,7 +390,7 @@ button:hover {
 	.right-back h3 {
 		font-size: 25px;
 	}
-	.flip-container{
+	.flip-container {
 		overflow: auto;
 	}
 	.right .wizard-mobile-down {
@@ -411,151 +398,9 @@ button:hover {
 	}
 }
 
-@media (orientation: landscape){
-	.logo{
+@media (orientation: landscape) {
+	.logo {
 		display: none;
 	}
 }
 
-/* 
-@media (max-width: 600px){
-	form * {
-		font-size: 14px;
-	}
-	input {
-		height: 50px;
-		line-height: 50px;
-		width: 100%;
-	}
-
-	form {
-		height: 60vh;
-	}
-
-	button {
-		margin-top: 50px;
-		width: 100%;
-	}
-
-	.register-form button {
-		margin-top: 50px;
-	}
-
-	.right-back {
-		position: relative;
-		height: 100vh;
-	}
-
-	form.register-form {
-		height: 60vh;
-		align-items: center;
-	}
-
-	.right-back .logo {
-		display: none;
-	}
-
-	.wrapper {
-		width: 100%;
-		height: 100%;
-	}
-
-	.right-back h3 {
-		font-size: 25px;
-	}
-	.flip-container{
-		overflow: auto;
-	}
-} */
-/* 
-@media (max-width: 1000px) or (orientation: portrait) {
-	.login .left {
-		display: none;
-	}
-	.login .right {
-		display: flex;
-		width: 100%;
-		height: 100%;
-	}
-	form {
-		background-color: rgba(255, 255, 255, 0);
-		width: 90%;
-		border-radius: 10px;
-		backdrop-filter: none;
-		border: none;
-		box-shadow: none;
-		height: 100%;
-	}
-
-	.flip-container {
-		width: 100%;
-	}
-
-	.brand-wrapper {
-		display: none;
-	}
-	.wrapper {
-		display: flex;
-		width: 100%;
-		height: 100%;
-		align-items: center;
-		justify-content: center;
-	}
-	.wrapper .right {
-		position: relative;
-	}
-
-	.logo {
-		position: absolute;
-		display: block;
-	}
-
-	form {
-		height: 60vh;
-		padding: 50px 35px 50px;
-	}
-
-	form .forgot-passwd {
-		display: block;
-		text-decoration: none;
-		color: aliceblue;
-	}
-
-	form .forgot-passwd:hover {
-		color: rgb(22, 79, 135);
-		transition: color 0.2s ease, box-shadow 0.2s ease;
-	}
-
-	form .sign-up {
-		text-decoration: none;
-	}
-
-	form .sign-up:hover {
-		color: rgb(22, 79, 135);
-		transition: color 0.2s ease, box-shadow 0.2s ease;
-	}
-} */
-
-/* @media (max-height: 500px) {
-	.right {
-		overflow-x: auto;
-		overflow-y: hidden;
-	}
-	form {
-		top: 40%;
-	}
-
-	.logo {
-		display: none;
-	}
-} */
-/* 
-@media (min-width: 600px) {
-	.logo {
-		width: 250px;
-		height: auto;
-	}
-	.wizard-mobile-down {
-		display: none;
-	}
-} */
