@@ -12,7 +12,19 @@ services:
     links:
       - php
     networks:
-      - wdpai-network
+#      - wdpai-network
+      - pg-network
+
+  db:
+    build:
+      context: .
+      dockerfile: docker/db/Dockerfile
+    ports:
+      - '5432:5432'
+    networks:
+      - pg-network
+    volumes:
+      - pg-data:/var/lib/postgresql/data
 
   php:
     build:
@@ -21,18 +33,8 @@ services:
     volumes:
       - .:/app/
     networks:
-      - wdpai-network
-
-  db:
-    build:
-      context: .
-      dockerfile: docker/db/Dockerfile
-    ports:
-      - '5433:5432'
-    networks:
+#      - wdpai-network
       - pg-network
-    volumes:
-      - pg-data:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -46,7 +48,7 @@ services:
       - pg-network
 
 networks:
-  wdpai-network:
+#  wdpai-network:
   pg-network:
 
 volumes:

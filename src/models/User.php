@@ -5,16 +5,22 @@ namespace models;
 class User
 {
     private $email;
-    private $name;
-    private $surname;
+    private $username;
     private $password;
 
-    public function __construct($email, $name, $surname, $password)
+    public function __construct(string $email, string $username, string $password)
     {
         $this->email = $email;
-        $this->name = $name;
-        $this->surname = $surname;
+        $this->username = $username;
         $this->password = $password;
+    }
+    public function getUsername()
+    {
+        return $this->username;
+    }
+    public function setUsername($username)
+    {
+        $this->username = $username;
     }
     public function getEmail()
     {
@@ -24,22 +30,6 @@ class User
     {
         $this->email = $email;
     }
-    public function getName()
-    {
-        return $this->name;
-    }
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-    public function getSurname()
-    {
-        return $this->surname;
-    }
-    public function setSurname($surname)
-    {
-        $this->surname = $surname;
-    }
     public function getPassword()
     {
         return $this->password;
@@ -48,6 +38,4 @@ class User
     {
         $this->password = $password;
     }
-
-
 }

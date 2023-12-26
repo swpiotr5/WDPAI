@@ -11,17 +11,14 @@ body {
 	overflow: auto;
 }
 
-.wrapper {
+/* .wrapper {
 	display: flex;
 	margin: 0;
 	position: relative;
 	flex-direction: column;
-	/* top: 50%; */
 	left: 50%;
 	padding-top: 20px;
 	transform: translateX(-50%);
-	/* -ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%); */
 	background-color: rgba(16, 39, 62, 1);
 	height: 100vh;
 	width: 100%;
@@ -29,6 +26,24 @@ body {
 	border-radius: 1%;
 	box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.5);
 	overflow: hidden;
+} */
+
+
+.wrapper {
+    display: flex;
+    margin: 0;
+    position: relative;
+    flex-direction: column;
+    left: 50%;
+    padding-top: 20px;
+    transform: translateX(-50%);
+    background-color: rgba(16, 39, 62, 1);
+    /* height: 100vh; */
+	min-height: 100vh;
+    width: 100%;
+    max-width: 2000px;
+    border-radius: 1%;
+    box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.5);
 }
 
 li {
@@ -108,7 +123,7 @@ header {
 }
 
 .dropdown-menu.open {
-	height: 240px;
+	height: 290px;
 	border: 1px solid black;
 }
 
@@ -124,8 +139,32 @@ header {
 	margin: 10px 10px;
 }
 
+/*  common footer */
+
+.wrapper-footer {
+	display: none;
+	flex-direction: row;
+	align-items: center;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+footer p {
+	color: aliceblue;
+}
+
+footer img {
+	width: 40px;
+}
+
+
 /* RESPONSIVE DESIGN */
 @media (max-width: 1024px) {
+	.wrapper-footer {
+		display: flex;
+	}
 	.navbar .links,
 	.navbar .logo,
 	.navbar .user-logo {
@@ -157,3 +196,4 @@ header {
 		font-size: 2rem;
 	}
 }
+

@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- <link rel="stylesheet" href="public/css/style.css"> -->
     <link rel="stylesheet" href="public\css\navbar.css">
-    <link rel="stylesheet" href="public\css\active.css">
+    <link rel="stylesheet" href="public/css/location.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -26,19 +27,32 @@
                     <li><a href="active">active</a></li>
                     <li><a href="wardrobe">wardrobe</a></li>
                 </ul>
-                <div class="user-logo"><img src="public\img\user.png" alt=""></div>
+                <div class="user-logo"><a href="userpage"><img src="public\img\user.png" alt=""></a></div>
                 <div class="toggle-btn"><i class="fa-solid fa-bars"></i></div>
             </div>
             <div class="dropdown-menu">
                 <li><a href="forecast">forecast</a></li>
                 <li><a href="location">location</a></li>
                 <li><a href="active">active</a></li>
-                <li><a href="wardrobe">wardrobe</a></li> 
+                <li><a href="wardrobe">wardrobe</a></li>
+                <li><a href="userpage">user</a></li>
             </div>
 
-            <div class="main-section"></div>
+            <div class="main-frame">
+                <div class="text-area">
+                    <p>Welcome *Username*!</p>
+                    <p>Choose your location</p>
+                </div>
+                <div class="user-logo-area"><img src="public\img\user.png" alt=""></div>
+                <div class="location-input-area">
+                    <div class="btn"><button id="get-curr-location">Use my current location</button></div>
+                    <div class="input"><input type="text" id="locationInput" placeholder="Enter a location" spellcheck="false"></div>
+                    <div class="location"><button id="get-location-btn" role="button">Get Location</button></div>
+                </div>
+            </div>
+            <footer><div class="wrapper-footer"><p>What2Wear Wizard</p><img src="public\img\logo.png" alt=""></div></footer>
         </div>
-        
+
     </header>
 
     <script>
@@ -56,4 +70,5 @@
 
         }
     </script>
+    <script src="..\scripts\weather.js"></script>
 </body>

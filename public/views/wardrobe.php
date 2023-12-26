@@ -26,7 +26,7 @@
                     <li><a href="active">active</a></li>
                     <li><a href="wardrobe">wardrobe</a></li>
                 </ul>
-                <div class="user-logo"><img src="public\img\user.png" alt=""></div>
+                <div class="user-logo"><a href="userpage"><img src="public\img\user.png" alt=""></a></div>
                 <div class="toggle-btn"><i class="fa-solid fa-bars"></i></div>
             </div>
             <div class="dropdown-menu">
@@ -34,6 +34,7 @@
                 <li><a href="location">location</a></li>
                 <li><a href="active">active</a></li>
                 <li><a href="wardrobe">wardrobe</a></li> 
+                <li><a href="userpage">user</a></li>
             </div>
 
             <div class="main-section">
@@ -175,6 +176,7 @@
                     </div>
                 </div>
             </div>
+            <footer><div class="wrapper-footer"><p>What2Wear Wizard</p><img src="public\img\logo.png" alt=""></div></footer>
         </div>
         
     </header>

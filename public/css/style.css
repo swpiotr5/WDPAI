@@ -21,11 +21,10 @@ body {
 	transform: translate(-50%, -50%);
 	background-color: rgba(16, 39, 62, 1);
 	height: 100%;
-	width: 100%;
+	width: 80%;
 	max-width: 2000px;
 	border-radius: 1%;
 	box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.5);
-	overflow: hidden;
 }
 
 .wrapper .left img {
@@ -159,7 +158,6 @@ form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	height: 80%;
 	width: 85%;
 	background-color: rgba(18, 63, 108, 1);
 	position: absolute;

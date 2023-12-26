@@ -24,15 +24,23 @@
             <div class="flipper" id="flipper">
                 <aside class="right">
                     <img src="public/img/logo.png" alt="" class="logo">
-                    <form class="login-form">
+                    <form class="login-form" action="login" method="POST">
                         <h3>Login Here</h3>
+                        <div class="messages" style="margin-top: 20px; color: red">
+                            <?php
+                            if(isset($messages)){
+                                foreach($messages as $message) {
+                                    echo $message;
+                                }
+                            }
+                            ?></div>
                         <label for="username">Username</label>
-                        <input type="text" placeholder="Username" id="username">
+                        <input name="username" type="text" placeholder="Username" id="username">
 
                         <label for="password">Password</label>
-                        <input type="password" placeholder="Password" id="password">
+                        <input name="password" type="password" placeholder="Password" id="password">
 
-                        <button>Log In</button>
+                        <button type="submit">Log In</button>
                         <a href="#" class="forgot-passwd">forgot password?</a>
                         <a href="#" class="sign-up flipbutton" id="loginButton">Click here to sign up</a>
                     </form>
@@ -43,16 +51,16 @@
                     <form class="register-form">
                         <h3>Create account</h3>
                         <label for="username">Username</label>
-                        <input type="text" placeholder="Username" id="username">
+                        <input name="username" type="text" placeholder="Username" id="username">
 
                         <label for="username">Email</label>
-                        <input type="text" placeholder="Email" id="username">
+                        <input name="email" type="text" placeholder="Email" id="email">
 
                         <label for="password">Password</label>
-                        <input type="password" placeholder="Password" id="password">
+                        <input name="password" type="password" placeholder="Password" id="password">
 
                         <label for="password">Confirm Password</label>
-                        <input type="password" placeholder="Confirm Password" id="password">
+                        <input name="password" type="password" placeholder="Confirm Password" id="password">
 
                         <button>Register</button>
                         <a href="#" class="sign-up flipbutton" id="registerButton">Already has an account? Sign in</a>
