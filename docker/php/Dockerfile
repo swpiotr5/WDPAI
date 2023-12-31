@@ -29,6 +29,11 @@ RUN apk add --no-cache --virtual .build-deps $BUILD_DEPS \
 
 RUN apk add --no-cache --virtual .run-deps $RUN_DEPS
 
+# Configure PHP-FPM to send error logs to Docker logs
+RUN echo "catch_workers_output = yes" >> /usr/local/etc/php-fpm.d/www.conf \
+    && echo "error_log = /proc/self/fd/2" > /usr/local/etc/php/php.ini
+
+
 # Copy the application code
 COPY . /app
 

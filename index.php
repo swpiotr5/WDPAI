@@ -12,5 +12,5 @@ Routing::get('active', 'DefaultController');
 Routing::get('wardrobe', 'DefaultController');
 Routing::get('userpage', 'DefaultController');
 Routing::post('login', 'SecurityController');
-Routing::post('forecast', 'ForecastController');
+Routing::post('addForecast', 'ForecastController');
 Routing::run($path);

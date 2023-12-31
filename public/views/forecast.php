@@ -13,7 +13,6 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap"
         rel="stylesheet">
     <script src="https://kit.fontawesome.com/ee62767aeb.js" crossorigin="anonymous"></script>
-    <script src="../scripts/weather.js"></script>
 </head>
 
 <body>

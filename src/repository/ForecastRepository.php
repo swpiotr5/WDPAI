@@ -31,26 +31,46 @@ class ForecastRepository extends Repository
             $forecast['humidity'],
             $forecast['sunset'],
             $forecast['sunrise'],
-            $forecast['rainPossibility'],
-            $forecast['time']
+            $forecast['rain'],
+            $forecast['time'],
+            $forecast['isCurrent']
+
         );
     }
 
     public function addForecast(Forecast $forecast): void
     {
-        $stmt = $this->database->connect()->prepare('INSERT INTO forecasts (cityName, weatherDescription, wind, pressure, temperature, humidity, sunset, sunrise, rainPossibility, time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt = $this->database->connect()->prepare('
+        INSERT INTO forecasts (
+            "cityName", "weatherDescription", wind, pressure, temperature, humidity, 
+            sunset, sunrise, rain, "time", "isCurrent"
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ');
+
+        var_dump($forecast->getIsCurrent());
+
+        $isCurrent = $forecast->getIsCurrent();
+        if ($isCurrent === '') {
+            $isCurrent = 'false';
+        } else {
+            $isCurrent = $isCurrent ? 'true' : 'false';
+        }
+    
+
 
         $stmt->execute([
             $forecast->getCityName(),
             $forecast->getWeatherDescription(),
             $forecast->getWind(),
             $forecast->getPressure(),
+            $forecast->getTemperature(),
             $forecast->getHumidity(),
             $forecast->getSunset(),
             $forecast->getSunrise(),
-            $forecast->getRainPossibility(),
-            $forecast->getTime()
-
+            $forecast->getRain(),
+            $forecast->getTime(),
+            // $forecast->getIsCurrent()
+            $isCurrent
         ]);
     }
 }

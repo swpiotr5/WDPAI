@@ -21,23 +21,61 @@ class ForecastController extends AppController
 
     public function addForecast()
     {
+        error_log("addForecast() called");
         $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
         if($contentType === "application/json"){
             $content = trim(file_get_contents("php://input"));
             $decoded = json_decode($content, true);
+            error_log(print_r($decoded, true));
 
-            echo $this->forecastRepository->addForecast();
+            if(is_array($decoded)){
+                $forecast = new Forecast(
+                    $decoded['cityName'], 
+                    $decoded['weatherDescription'], 
+                    $decoded['wind'], 
+                    $decoded['pressure'], 
+                    $decoded['temperature'], 
+                    $decoded['humidity'], 
+                    $decoded['sunset'], 
+                    $decoded['sunrise'], 
+                    $decoded['rain'], 
+                    $decoded['time'],
+                    $decoded['isCurrent']
+                );
+                $this->forecastRepository->addForecast($forecast);
+                error_log("Data received and saved to database");
+            }
+            else{
+                error_log("No data received");
+            }
+    
+            return $this->render('forecast');
         }
 
         if ($this->isPost()){
-            // TODO create new project object and save it in database
-            $forecast = new Forecast($_POST['cityName'], $_POST['weatherDescription'], $_POST['wind'], $_POST['pressure'], $_POST['temperature'], $_POST['humidity'], $_POST['sunset'], $_POST['sunrise'], $_POST['rainPossibility'], $_POST['time']);
+            $forecast = new Forecast(
+                $_POST['cityName'], 
+                $_POST['weatherDescription'], 
+                $_POST['wind'], 
+                $_POST['pressure'], 
+                $_POST['temperature'], 
+                $_POST['humidity'], 
+                $_POST['sunset'], 
+                $_POST['sunrise'], 
+                $_POST['rain'], 
+                $_POST['time'],
+                $_POST['isCurrent']
+            );
             $this->forecastRepository->addForecast($forecast);
-
+            error_log("Data received and saved to database");
+    
             return $this->render('forecast');
         }
+        error_log("No data received");
         return $this->render('forecast');
     }
 
 }
+
+
