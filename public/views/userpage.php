@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION["username"])) {
+    header("Location: login"); // Przekieruj na stronę logowania, jeśli użytkownik nie jest zalogowany
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +50,8 @@
                 <p class="username">username: admin</p>
                 <p class="email">email: admin@gmail.com</p>
                 <button class="btn-user pwd-change" role="button">change your password</button>
-                <button class="btn-user logout" role="button" onclick="window.location.href = '/';">logout</button>
+                <form action="logout" method="post"><button type="submit" class="btn-user logout" role="button" onclick="window.location.href = '/';">logout</button></form>
+                
             </div>
             <div class="avatar-section">
                 <p>Choose your avatar</p>

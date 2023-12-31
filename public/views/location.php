@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION["username"])) {
+    header("Location: login"); // Przekieruj na stronę logowania, jeśli użytkownik nie jest zalogowany
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

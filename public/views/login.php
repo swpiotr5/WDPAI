@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (isset($_SESSION["username"])) {
+    $url = "http://$_SERVER[HTTP_HOST]";
+    header("Location: {$url}/forecast");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,20 +57,29 @@
                 </aside>
                 <aside class="right-back">
                     <img src="public/img/logo.png" alt="" class="logo">
-                    <form class="register-form">
+                    <form class="register-form" action="register" method="POST">
                         <h3>Create account</h3>
-                        <label for="username">Username</label>
-                        <input name="username" type="text" placeholder="Username" id="username">
+                        <label for="username-register">Username</label>
+                        <input name="username-register" type="text" placeholder="Username" id="username-register">
 
-                        <label for="username">Email</label>
-                        <input name="email" type="text" placeholder="Email" id="email">
+                        <label for="email-register">Email</label>
+                        <input name="email-register" type="text" placeholder="Email" id="email-register">
 
-                        <label for="password">Password</label>
-                        <input name="password" type="password" placeholder="Password" id="password">
+                        <label for="password-register">Password</label>
+                        <input name="password-register" type="password" placeholder="Password" id="password-register">
 
-                        <label for="password">Confirm Password</label>
-                        <input name="password" type="password" placeholder="Confirm Password" id="password">
-
+                        <label for="password-confirm">Confirm Password</label>
+                        <input name="password-confirm" type="password" placeholder="Confirm Password" id="password-confirm">
+                        
+                        <div class="messages" style="margin-top: 20px; color: red">
+                            <?php
+                            if(isset($messages)){
+                                foreach($messages as $message) {
+                                    echo $message;
+                                }
+                            }
+                            ?>
+                        </div>
                         <button>Register</button>
                         <a href="#" class="sign-up flipbutton" id="registerButton">Already has an account? Sign in</a>
                     </form>
@@ -70,8 +88,17 @@
             </div>
         </div>
     </div>
-
     <script src="scripts/script.js"></script>
 </body>
 
 </html>
+
+<?php
+    // Sprawdź, czy istnieją jakiekolwiek wiadomości błędów
+    if(isset($messages) && count($messages) > 0){
+    // Jeśli są jakiekolwiek wiadomości błędów, ustaw stan formularza na 'register'
+        echo "<script>localStorage.setItem('formState', 'register');</script>";
+    } else {
+        echo "<script>localStorage.setItem('formState', 'login');</script>";
+    }
+?>

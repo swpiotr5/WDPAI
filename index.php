@@ -12,5 +12,7 @@ Routing::get('active', 'DefaultController');
 Routing::get('wardrobe', 'DefaultController');
 Routing::get('userpage', 'DefaultController');
 Routing::post('login', 'SecurityController');
+Routing::post('register', 'SecurityController');
+Routing::post('logout', 'SecurityController');
 Routing::post('addForecast', 'ForecastController');
 Routing::run($path);
