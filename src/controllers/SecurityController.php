@@ -29,9 +29,9 @@ class SecurityController extends AppController
             return $this->render('login', ['messages'=>['User with this username not exists']]);
         }
 
-        // if (!password_verify($password, $user->getPassword())){
-        //     return $this->render('login', ['messages' => ['Wrong password']]);
-        // }
+        if (!password_verify($password, $user->getPassword())){
+            return $this->render('login', ['messages' => ['Wrong password']]);
+        }
 
         session_start();
 
