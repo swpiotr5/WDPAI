@@ -35,6 +35,7 @@ class SecurityController extends AppController
 
         session_start();
 
+        $_SESSION["id"] = $userRepository->getIdByEmail($user->getEmail());
         $_SESSION["username"] = $user->getUsername();
         $_SESSION["email"] = $user->getEmail();
 

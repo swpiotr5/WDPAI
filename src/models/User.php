@@ -14,7 +14,7 @@ class User
         $this->username = $username;
         $this->password = $password;
     }
-    public function getUsername()
+        public function getUsername()
     {
         return $this->username;
     }

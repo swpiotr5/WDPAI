@@ -226,7 +226,6 @@ if (!isset($_SESSION["username"])) {
                     selectedClothes.push(input.value);
                 }
             });
-            console.log(selectedClothes);
 
             fetch('/getAllClothes', {
                 method: 'POST',
@@ -241,13 +240,25 @@ if (!isset($_SESSION["username"])) {
                 return response.json();
             })
             .then(dataArray => {
+                let clothesIds = [];
                 selectedClothes.forEach(function(clothing) {
                     dataArray.forEach(function(data) {
                         if (data.clothing_type === clothing) {
-                            console.log('Selected clothing found in server data:', data);
+                            clothesIds.push(data.clothing_id);
                         }
                     });
                 });
+
+                fetch('/assignClothesToUser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId: <?php echo $_SESSION["id"]; ?>,
+                        clothes: clothesIds
+                    })
+                })
             })
             .catch(error => {
                 console.error('Error:', error);
