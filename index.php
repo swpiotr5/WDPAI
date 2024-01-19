@@ -15,4 +15,5 @@ Routing::post('login', 'SecurityController');
 Routing::post('register', 'SecurityController');
 Routing::post('logout', 'SecurityController');
 Routing::post('addForecast', 'ForecastController');
+Routing::post('getAllClothes', 'ClothingController');
 Routing::run($path);

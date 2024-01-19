@@ -183,6 +183,7 @@ if (!isset($_SESSION["username"])) {
                         </div>
                     </div>
                 </div>
+                <button id="save-clothes-btn">Save</button>
             </div>
             <footer><div class="wrapper-footer"><p>What2Wear Wizard</p><img src="public\img\logo.png" alt=""></div></footer>
         </div>
@@ -203,5 +204,54 @@ if (!isset($_SESSION["username"])) {
                 : 'fa-solid fa-bars'
 
         }
+
+        var clothesInputs = document.querySelectorAll('.clothing-section .clothes input[type="radio"]');
+
+        clothesInputs.forEach(function(input) {
+            input.addEventListener('click', function() {
+                if (this.classList.contains('checked')) {
+                    this.checked = false;
+                    this.classList.remove('checked');
+                } else {
+                    this.classList.add('checked');
+                }
+            });
+        });
+
+        document.getElementById('save-clothes-btn').addEventListener('click', function() {
+            var selectedClothes = [];
+            
+            clothesInputs.forEach(function(input) {
+                if (input.checked) {
+                    selectedClothes.push(input.value);
+                }
+            });
+            console.log(selectedClothes);
+
+            fetch('/getAllClothes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(dataArray => {
+                selectedClothes.forEach(function(clothing) {
+                    dataArray.forEach(function(data) {
+                        if (data.clothing_type === clothing) {
+                            console.log('Selected clothing found in server data:', data);
+                        }
+                    });
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
     </script>
 </body>
