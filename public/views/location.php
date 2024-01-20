@@ -4,6 +4,11 @@ if (!isset($_SESSION["username"])) {
     header("Location: login"); // Przekieruj na stronę logowania, jeśli użytkownik nie jest zalogowany
     exit;
 }
+if (isset($_SESSION['avatar'])) {
+    $avatar = $_SESSION['avatar'];
+} else {
+    $avatar = 'public\img\user.png';
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +40,7 @@ if (!isset($_SESSION["username"])) {
                     <li><a href="active">active</a></li>
                     <li><a href="wardrobe">wardrobe</a></li>
                 </ul>
-                <div class="user-logo"><a href="userpage"><img src="public\img\user.png" alt=""></a></div>
+                <div class="user-logo"><a href="userpage"><img src="<?php echo $avatar; ?>" alt=""></a></div>
                 <div class="toggle-btn"><i class="fa-solid fa-bars"></i></div>
             </div>
             <div class="dropdown-menu">
@@ -48,10 +53,10 @@ if (!isset($_SESSION["username"])) {
 
             <div class="main-frame">
                 <div class="text-area">
-                    <p>Welcome *Username*!</p>
+                    <p>Welcome <?php echo $_SESSION["username"]?>!</p>
                     <p>Choose your location</p>
                 </div>
-                <div class="user-logo-area"><img src="public\img\user.png" alt=""></div>
+                <div class="user-logo-area"><img src="<?php echo $avatar; ?>" alt=""></div>
                 <div class="location-input-area">
                     <div class="btn"><button id="get-curr-location">Use my current location</button></div>
                     <div class="input"><input type="text" id="locationInput" placeholder="Enter a location" spellcheck="false"></div>

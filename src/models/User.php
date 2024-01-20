@@ -7,12 +7,14 @@ class User
     private $email;
     private $username;
     private $password;
+    private $avatar;
 
-    public function __construct(string $email, string $username, string $password)
+    public function __construct(string $email, string $username, string $password, string $avatar)
     {
         $this->email = $email;
         $this->username = $username;
         $this->password = $password;
+        $this->avatar = $avatar;
     }
         public function getUsername()
     {
@@ -37,5 +39,11 @@ class User
     public function setPassword($password)
     {
         $this->password = $password;
+    }
+    public function getAvatar(){
+        return $this->avatar;
+    }
+    public function setAvatar($avatar){
+        $this->avatar = $avatar;
     }
 }

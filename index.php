@@ -18,4 +18,5 @@ Routing::post('deleteForecasts', 'ForecastController');
 Routing::post('addForecast', 'ForecastController');
 Routing::post('assignClothesToUser', 'WardrobeController');
 Routing::post('getAllClothes', 'ClothingController');
+Routing::post('updateAvatar', 'SecurityController');
 Routing::run($path);

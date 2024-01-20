@@ -4,6 +4,11 @@ if (!isset($_SESSION["username"])) {
     header("Location: login"); // Przekieruj na stronę logowania, jeśli użytkownik nie jest zalogowany
     exit;
 }
+if (isset($_SESSION['avatar'])) {
+    $avatar = $_SESSION['avatar'];
+} else {
+    $avatar = 'public\img\user.png';
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +38,7 @@ if (!isset($_SESSION["username"])) {
                 <li><a href="active">active</a></li>
                 <li><a href="wardrobe">wardrobe</a></li>
             </ul>
-            <div class="user-logo"><a href="userpage"><img src="public\img\user.png" alt=""></a></div>
+            <div class="user-logo"><a href="userpage"><img src="<?php echo $avatar; ?>" alt=""></a></div>
             <div class="toggle-btn"><i class="fa-solid fa-bars"></i></div>
         </div>
         <div class="dropdown-menu">
@@ -46,9 +51,9 @@ if (!isset($_SESSION["username"])) {
 
         <div class="main-section">
             <div class="user-data">
-                <img src="public\img\user.png" alt="" class="user-image">
-                <p class="username">username: admin</p>
-                <p class="email">email: admin@gmail.com</p>
+                <img src="<?php echo $avatar; ?>" alt="" class="user-image">
+                <p class="username">username: <?php echo $_SESSION["username"] ?></p>
+                <p class="email">email: <?php echo $_SESSION["email"]?></p>
                 <button class="btn-user pwd-change" role="button">change your password</button>
                 <form action="logout" method="post"><button type="submit" class="btn-user logout" role="button" onclick="window.location.href = '/';">logout</button></form>
                 
@@ -90,4 +95,5 @@ if (!isset($_SESSION["username"])) {
 
         }
     </script>
+    <script src="..\scripts\setAvatar.js"></script>
 </body>

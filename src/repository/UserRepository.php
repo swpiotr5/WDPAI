@@ -22,7 +22,8 @@ class UserRepository extends Repository
         return new User(
             $user['email'],
             $user['username'],
-            $user['password']
+            $user['password'],
+            $user['avatar']
         );
     }
 
@@ -38,9 +39,10 @@ class UserRepository extends Repository
         }
 
         return new User(
-                        $user['email'],
+            $user['email'],
             $user['username'],
-            $user['password']
+            $user['password'],
+            $user['avatar']
         );
     }
 
@@ -60,14 +62,25 @@ class UserRepository extends Repository
 
     public function addUser(User $user) : void{
         $stmt = $this->database->connect()->prepare('
-            INSERT INTO users (email, username, password) VALUES (?, ?, ?)
+            INSERT INTO users (email, username, password, avatar) VALUES (?, ?, ?, ?)
         ');
 
         $stmt->execute([
             $user->getEmail(),
             $user->getUsername(),
-            $user->getPassword()
+            $user->getPassword(),
+            $user->getAvatar()
         ]);
+    }
+    public function updateAvatar(int $userId, string $avatarUrl): void {
+        $stmt = $this->database->connect()->prepare('
+            UPDATE users SET avatar = :avatar WHERE user_id = :id
+        ');
+    
+        $stmt->bindParam(':avatar', $avatarUrl, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+    
+        $stmt->execute();
     }
 }
 
