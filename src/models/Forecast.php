@@ -14,8 +14,10 @@ class Forecast
     private $sunrise;
     private $rainPossibility;
     private $time;
+    private $isCurrent;
+    private $user_id;
 
-    public function __construct($cityName, $weatherDescription, $wind, $pressure, $temperature, $humidity, $sunset, $sunrise, $rain, $time, $isCurrent)
+    public function __construct($cityName, $weatherDescription, $wind, $pressure, $temperature, $humidity, $sunset, $sunrise, $rain, $time, $isCurrent, $user_id)
     {
         $this->cityName = $cityName;
         $this->weatherDescription = $weatherDescription;
@@ -28,11 +30,21 @@ class Forecast
         $this->rain = $rain;
         $this->time = $time;
         $this->isCurrent = $isCurrent;
+        $this->user_id = $user_id;
+    }
+    public function getUser_id()
+    {
+        return $this->user_id;
+    }
+    public function setUser_id($user_id): void
+    {
+        $this->user_id = $user_id;
     }
     public function getCityName()
     {
         return $this->cityName;
     }
+
     public function setCityName($cityName): void
     {
         $this->cityName = $cityName;

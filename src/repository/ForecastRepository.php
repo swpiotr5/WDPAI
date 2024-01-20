@@ -33,8 +33,8 @@ class ForecastRepository extends Repository
             $forecast['sunrise'],
             $forecast['rain'],
             $forecast['time'],
-            $forecast['isCurrent']
-
+            $forecast['isCurrent'],
+            $forecast['user_id']
         );
     }
 
@@ -43,8 +43,8 @@ class ForecastRepository extends Repository
         $stmt = $this->database->connect()->prepare('
         INSERT INTO forecasts (
             "cityName", "weatherDescription", wind, pressure, temperature, humidity, 
-            sunset, sunrise, rain, "time", "isCurrent"
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            sunset, sunrise, rain, "time", "isCurrent", "user_id"
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ');
 
         var_dump($forecast->getIsCurrent());
@@ -55,8 +55,6 @@ class ForecastRepository extends Repository
         } else {
             $isCurrent = $isCurrent ? 'true' : 'false';
         }
-    
-
 
         $stmt->execute([
             $forecast->getCityName(),
@@ -70,7 +68,17 @@ class ForecastRepository extends Repository
             $forecast->getRain(),
             $forecast->getTime(),
             // $forecast->getIsCurrent()
-            $isCurrent
+            $isCurrent,
+            $forecast->getUser_id()
         ]);
+    }
+    
+    public function deleteForecastsByUserId($user_id)
+    {
+        $stmt = $this->database->connect()->prepare('
+            DELETE FROM forecasts WHERE user_id = :user_id
+        ');
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
     }
 }

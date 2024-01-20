@@ -62,7 +62,7 @@ if (!isset($_SESSION["username"])) {
         </div>
 
     </header>
-
+    
     <script>
         const toggleBtn = document.querySelector('.toggle-btn')
         const toggleBtnIcon = document.querySelector('.toggle-btn i')

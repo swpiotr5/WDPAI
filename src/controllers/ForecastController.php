@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 use models\Forecast;
 use repository\ForecastRepository;
 
@@ -23,12 +23,11 @@ class ForecastController extends AppController
     {
         error_log("addForecast() called");
         $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
-
+        $user_id = $_SESSION['id'];
         if($contentType === "application/json"){
             $content = trim(file_get_contents("php://input"));
             $decoded = json_decode($content, true);
             error_log(print_r($decoded, true));
-
             if(is_array($decoded)){
                 $forecast = new Forecast(
                     $decoded['cityName'], 
@@ -41,7 +40,8 @@ class ForecastController extends AppController
                     $decoded['sunrise'], 
                     $decoded['rain'], 
                     $decoded['time'],
-                    $decoded['isCurrent']
+                    $decoded['isCurrent'],
+                    $user_id
                 );
                 $this->forecastRepository->addForecast($forecast);
                 error_log("Data received and saved to database");
@@ -65,7 +65,8 @@ class ForecastController extends AppController
                 $_POST['sunrise'], 
                 $_POST['rain'], 
                 $_POST['time'],
-                $_POST['isCurrent']
+                $_POST['isCurrent'],
+                $user_id
             );
             $this->forecastRepository->addForecast($forecast);
             error_log("Data received and saved to database");
@@ -74,6 +75,16 @@ class ForecastController extends AppController
         }
         error_log("No data received");
         return $this->render('forecast');
+    }
+
+    public function deleteForecasts()
+    {
+        error_log("deleteForecasts() called");
+        $user_id = $_SESSION['id'];
+    
+        // Delete existing forecasts for the user
+        $this->forecastRepository->deleteForecastsByUserId($user_id);
+        error_log("Forecasts for user_id " . $user_id . " deleted from database");
     }
 
 }

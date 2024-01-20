@@ -14,6 +14,7 @@ Routing::get('userpage', 'DefaultController');
 Routing::post('login', 'SecurityController');
 Routing::post('register', 'SecurityController');
 Routing::post('logout', 'SecurityController');
+Routing::post('deleteForecasts', 'ForecastController');
 Routing::post('addForecast', 'ForecastController');
 Routing::post('assignClothesToUser', 'WardrobeController');
 Routing::post('getAllClothes', 'ClothingController');
