@@ -11,6 +11,7 @@ Routing::get('location', 'DefaultController');
 Routing::get('active', 'DefaultController');
 Routing::get('wardrobe', 'DefaultController');
 Routing::get('userpage', 'DefaultController');
+Routing::get('forecast', 'ForecastController');
 Routing::post('login', 'SecurityController');
 Routing::post('register', 'SecurityController');
 Routing::post('logout', 'SecurityController');
@@ -19,4 +20,5 @@ Routing::post('addForecast', 'ForecastController');
 Routing::post('assignClothesToUser', 'WardrobeController');
 Routing::post('getAllClothes', 'ClothingController');
 Routing::post('updateAvatar', 'SecurityController');
+
 Routing::run($path);

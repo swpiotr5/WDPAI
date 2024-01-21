@@ -3,6 +3,7 @@
 namespace repository;
 
 use models\Forecast;
+use PDO;
 use Repository;
 
 require_once 'Repository.php';
@@ -25,6 +26,7 @@ class ForecastRepository extends Repository
         return new Forecast(
             $forecast['cityName'],
             $forecast['weatherDescription'],
+            $forecast['preciseWeatherDescription'],
             $forecast['wind'],
             $forecast['pressure'],
             $forecast['temperature'],
@@ -38,13 +40,74 @@ class ForecastRepository extends Repository
         );
     }
 
+    public function getCurrentForecast($user_id): ?Forecast{
+        $stmt = $this->database->connect()->prepare('SELECT * FROM public.forecasts WHERE "isCurrent" = true AND "user_id" = :user_id');
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $forecast = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($forecast == false) {
+            return null;
+        }
+    
+        return new Forecast(
+            $forecast['cityName'],
+            $forecast['weatherDescription'],
+            $forecast['preciseWeatherDescription'],
+            $forecast['wind'],
+            $forecast['pressure'],
+            $forecast['temperature'],
+            $forecast['humidity'],
+            $forecast['sunset'],
+            $forecast['sunrise'],
+            $forecast['rain'],
+            $forecast['time'],
+            $forecast['isCurrent'],
+            $forecast['user_id']
+        );
+    }
+
+    public function getFutureForecasts($user_id): ?array{
+        $stmt = $this->database->connect()->prepare('SELECT * FROM public.forecasts WHERE "isCurrent" = false AND "user_id" = :user_id');
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $forecasts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        if ($forecasts == false) {
+            return null;
+        }
+
+        $forecastsArray = array();
+        foreach ($forecasts as $forecast) {
+            array_push($forecastsArray, new Forecast(
+                $forecast['cityName'],
+                $forecast['weatherDescription'],
+                $forecast['preciseWeatherDescription'],
+                $forecast['wind'],
+                $forecast['pressure'],
+                $forecast['temperature'],
+                $forecast['humidity'],
+                $forecast['sunset'],
+                $forecast['sunrise'],
+                $forecast['rain'],
+                $forecast['time'],
+                $forecast['isCurrent'],
+                $forecast['user_id']
+            ));
+        }
+    
+        return $forecastsArray;
+    }
+
     public function addForecast(Forecast $forecast): void
     {
         $stmt = $this->database->connect()->prepare('
         INSERT INTO forecasts (
-            "cityName", "weatherDescription", wind, pressure, temperature, humidity, 
+            "cityName", "weatherDescription", "preciseWeatherDescription", wind, pressure, temperature, humidity, 
             sunset, sunrise, rain, "time", "isCurrent", "user_id"
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ');
 
         var_dump($forecast->getIsCurrent());
@@ -59,6 +122,7 @@ class ForecastRepository extends Repository
         $stmt->execute([
             $forecast->getCityName(),
             $forecast->getWeatherDescription(),
+            $forecast->getPreciseWeatherDescription(),
             $forecast->getWind(),
             $forecast->getPressure(),
             $forecast->getTemperature(),

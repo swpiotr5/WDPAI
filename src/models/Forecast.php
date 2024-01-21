@@ -6,6 +6,7 @@ class Forecast
 {
     private $cityName;
     private $weatherDescription;
+    private $preciseWeatherDescription;
     private $wind;
     private $pressure;
     private $temperature;
@@ -17,10 +18,11 @@ class Forecast
     private $isCurrent;
     private $user_id;
 
-    public function __construct($cityName, $weatherDescription, $wind, $pressure, $temperature, $humidity, $sunset, $sunrise, $rain, $time, $isCurrent, $user_id)
+    public function __construct($cityName, $weatherDescription, $preciseWeatherDescription, $wind, $pressure, $temperature, $humidity, $sunset, $sunrise, $rain, $time, $isCurrent, $user_id)
     {
         $this->cityName = $cityName;
         $this->weatherDescription = $weatherDescription;
+        $this->preciseWeatherDescription = $preciseWeatherDescription;
         $this->wind = $wind;
         $this->pressure = $pressure;
         $this->temperature = $temperature;
@@ -31,6 +33,14 @@ class Forecast
         $this->time = $time;
         $this->isCurrent = $isCurrent;
         $this->user_id = $user_id;
+    }
+    public function getPreciseWeatherDescription()
+    {
+        return $this->preciseWeatherDescription;
+    }
+    public function setPreciseWeatherDescription($preciseWeatherDescription): void
+    {
+        $this->preciseWeatherDescription = $preciseWeatherDescription;
     }
     public function getUser_id()
     {

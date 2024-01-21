@@ -32,6 +32,7 @@ class ForecastController extends AppController
                 $forecast = new Forecast(
                     $decoded['cityName'], 
                     $decoded['weatherDescription'], 
+                    $decoded['preciseWeatherDescription'],
                     $decoded['wind'], 
                     $decoded['pressure'], 
                     $decoded['temperature'], 
@@ -57,6 +58,7 @@ class ForecastController extends AppController
             $forecast = new Forecast(
                 $_POST['cityName'], 
                 $_POST['weatherDescription'], 
+                $_POST['preciseWeatherDescription'],
                 $_POST['wind'], 
                 $_POST['pressure'], 
                 $_POST['temperature'], 
@@ -87,6 +89,13 @@ class ForecastController extends AppController
         error_log("Forecasts for user_id " . $user_id . " deleted from database");
     }
 
+    public function forecast() {
+        $user_id = $_SESSION['id'];
+        $current_forecast = $this->forecastRepository->getCurrentForecast($user_id);
+        $future_forecasts = $this->forecastRepository->getFutureForecasts($user_id);
+        // Przekazanie obiektu prognozy do widoku
+        $this->render('forecast', ['current_forecast' => $current_forecast, 'future_forecasts' => $future_forecasts]);
+    }
 }
 
 

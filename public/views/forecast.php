@@ -9,6 +9,7 @@ if (isset($_SESSION['avatar'])) {
 } else {
     $avatar = 'public\img\user.png';
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -51,24 +52,26 @@ if (isset($_SESSION['avatar'])) {
             </div>
             <div class="main-section">
                 <div class="banner">
-                    <p class="city">Kraków</p>
-                    <p class="weather-info">6°C | rain soon</p>
+                    <p class="city"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getCityName')) ? $current_forecast->getCityName() : ''; ?></p>
+                    <p class="weather-info"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getTemperature')) ? $current_forecast->getTemperature() . '°C' : ''; ?> | <?php echo (isset($current_forecast) && method_exists($current_forecast, 'getPreciseWeatherDescription')) ? $current_forecast->getPreciseWeatherDescription() : ''; ?></p>
                 </div>
                 <div class="temperatures">
-                    <div class="weather-container"><p class="time">Now</p><img src="public\img\weather-cloud.png" alt=""><p class="temperature">9℃</p></div>
-                    <div class="weather-container"><p class="time">9AM</p><img src="public\img\weather-cloud.png" alt=""><p class="temperature">9℃</p></div>
-                    <div class="weather-container"><p class="time">12PM</p><img src="public\img\weather-cloud.png" alt=""><p class="temperature">9℃</p></div>
-                    <div class="weather-container"><p class="time">15PM</p><img src="public\img\weather-cloud.png" alt=""><p class="temperature">9℃</p></div>
-                    <div class="weather-container"><p class="time">18PM</p><img src="public\img\weather-cloud.png" alt=""><p class="temperature">9℃</p></div>
-                    <div class="weather-container"><p class="time">21PM</p><img src="public\img\weather-cloud.png" alt=""><p class="temperature">9℃</p></div>
+                    <div class="weather-container"><p class="time">Now</p><img src="public\img\weather-cloud.png" alt=""><p class="temperature"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getTemperature')) ? $current_forecast->getTemperature() . '℃' : ''; ?></p></div>
+                    <?php for ($i = 0; $i < 5; $i++): ?>
+                        <div class="weather-container">
+                            <p class="time"><?php echo (isset($future_forecasts[$i]) && method_exists($future_forecasts[$i], 'getTime')) ? $future_forecasts[$i]->getTime() : ''; ?></p>
+                            <img src="public\img\weather-cloud.png" alt="">
+                            <p class="temperature"><?php echo (isset($future_forecasts[$i]) && method_exists($future_forecasts[$i], 'getTemperature')) ? $future_forecasts[$i]->getTemperature() . '℃' : ''; ?></p>
+                        </div>
+                    <?php endfor; ?>
                 </div>
                 <div class="other-parameters">
-                    <div class="parameter sunrise"><img src="public\img\sunrise.png" alt=""><p class="time">6AM</p></div>
-                    <div class="parameter sunset"><img src="public\img\sunset.png" alt=""><p class="time">2PM</p></div>
-                    <div class="parameter wind-speed"><img src="public\img\wind.png" alt=""><p class="speed">16m/s</p></div>
-                    <div class="parameter humidity"><img src="public\img\humidity.png" alt=""><p class="humidity-text">91%</p></div>
-                    <div class="parameter rain-chance"><img src="public\img\rain.png" alt=""><p class="rain-text">0%</p></div>
-                    <div class="parameter pressure"><img src="public\img\pressure.png" alt=""><p class="pressure-text">1010hPa</p></div>
+                    <div class="parameter sunrise"><img src="public\img\sunrise.png" alt=""><p class="time"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getSunrise')) ? $current_forecast->getSunrise() : ''; ?></p></div>
+                    <div class="parameter sunset"><img src="public\img\sunset.png" alt=""><p class="time"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getSunset')) ? $current_forecast->getSunset() : ''; ?></p></div>
+                    <div class="parameter wind-speed"><img src="public\img\wind.png" alt=""><p class="speed"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getWind')) ? $current_forecast->getWind() . 'm/s' : ''; ?></p></div>
+                    <div class="parameter humidity"><img src="public\img\humidity.png" alt=""><p class="humidity-text"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getHumidity')) ? $current_forecast->getHumidity() . '%' : ''; ?></p></div>
+                    <div class="parameter rain-chance"><img src="public\img\rain.png" alt=""><p class="rain-text"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getRain')) ? $current_forecast->getRain() . 'mm' : ''; ?></p></div>
+                    <div class="parameter pressure"><img src="public\img\pressure.png" alt=""><p class="pressure-text"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getPressure')) ? $current_forecast->getPressure() . 'hPa' : ''; ?></p></div>
                 </div>
                 <div class="clothing-info">
                     <p>clothing suggestions</p>
