@@ -4,6 +4,9 @@ const apiUrlWeatherBase = 'https://api.openweathermap.org/data/2.5/weather?';
 const getCurrLocation = document.getElementById('get-curr-location');
 const getLocationBtn = document.getElementById('get-location-btn');
 
+let dialog = document.querySelector("#dialog");
+let errorDialog = document.querySelector("#errorDialog");
+
 async function getUserLocation() {
     if ('geolocation' in navigator) {
         try {
@@ -29,6 +32,7 @@ async function getUserLocation() {
                 await checkCurrentWeather(apiUrlWeather);
             } catch (error) {
                 console.error('An error occurred while updating weather data:', error);
+                errorDialog.showModal();
             }
         } catch (error) {
             handleLocationError(error);
@@ -55,6 +59,7 @@ async function getLocationFromAddress(address) {
         await checkCurrentWeather(apiUrlWeather);
     } catch (error) {
         console.error('An error occurred while updating weather data:', error);
+        errorDialog.showModal();
     }
 }
 
@@ -63,8 +68,8 @@ async function handleLocationButtonClick() {
     const address = locationInput.value.trim();
 
     if (address !== '') {
-        await getLocationFromAddress(address);
-    } else {
+                    await getLocationFromAddress(address);
+                } else {
         console.error('Please enter a valid location.');
     }
 }
@@ -72,24 +77,32 @@ async function handleLocationButtonClick() {
 async function checkWeather(apiUrl) {
     try {
         const response = await fetch(apiUrl);
+        if (!response.ok) {
+            errorDialog.showModal();
+        } else {
+            dialog.showModal();
+        }
         const data = await response.json();
         const sunriseTimestamp = data.city.sunrise;
         const sunsetTimestamp = data.city.sunset;
-        const formattedSunrise = convertUnixTimestampToTime(sunriseTimestamp);
-        const formattedSunset = convertUnixTimestampToTime(sunsetTimestamp);
-
+        const timezone = data.city.timezone;
+        const formattedSunrise = convertUnixTimestampToTime(sunriseTimestamp, timezone);
+        const formattedSunset = convertUnixTimestampToTime(sunsetTimestamp, timezone);
+        
         for (const item of data.list) {
             const timestampHour = item.dt;
-            const formattedTimestampHour = convertUnixTimestampToTime(timestampHour);
+            const formattedTimestampHour = convertUnixTimestampToTime(timestampHour, timezone);
             const rainInches = item.rain ? item.rain['3h'] : 0;
             const rainMillimeters = rainInches * 25.4;
-
+            let temp = Math.round(parseFloat(item.main.temp));
+            
             const forecastData = {
                 cityName: data.city.name,
                 weatherDescription: item.weather[0].main,
+                preciseWeatherDescription: item.weather[0].description,
                 wind: item.wind.speed,
                 pressure: item.main.pressure,
-                temperature: item.main.temp,
+                temperature: temp,
                 humidity: item.main.humidity,
                 sunset: formattedSunset,
                 sunrise: formattedSunrise,
@@ -105,32 +118,45 @@ async function checkWeather(apiUrl) {
     }
 }
 
-function convertUnixTimestampToTime(timestamp) {
-    const date = new Date(timestamp * 1000);
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${hours}:${minutes}`;
+function convertUnixTimestampToTime(timestamp, timezoneOffset) {
+    if (typeof timestamp !== 'number' || typeof timezoneOffset !== 'number') {
+        console.error('Invalid arguments:', timestamp, timezoneOffset);
+        return 'Invalid time';
+    }
+
+    const date = new Date((timestamp + timezoneOffset) * 1000);
+    const hours = date.getUTCHours();
+    const minutes = "0" + date.getUTCMinutes();
+    const formattedTime = hours + ':' + minutes.substr(-2);
+    return formattedTime;
 }
 
 async function checkCurrentWeather(apiUrl) {
     try {
         const response = await fetch(apiUrl);
+        if (!response.ok) {
+            errorDialog.showModal();
+        } else {
+            dialog.showModal();
+        }
         const data = await response.json();
         const sunriseTimestamp = data.sys.sunrise;
         const sunsetTimestamp = data.sys.sunset;
-        const formattedSunrise = convertUnixTimestampToTime(sunriseTimestamp);
-        const formattedSunset = convertUnixTimestampToTime(sunsetTimestamp);
+        const timezone = data.timezone;
+        const formattedSunrise = convertUnixTimestampToTime(sunriseTimestamp, timezone);
+        const formattedSunset = convertUnixTimestampToTime(sunsetTimestamp, timezone);
         const timestampHour = data.dt;
-        const formattedTimestampHour = convertUnixTimestampToTime(timestampHour);
+        const formattedTimestampHour = convertUnixTimestampToTime(timestampHour, timezone);
         const rainInches = data.rain ? data.rain['1h'] : 0;
         const rainMillimeters = rainInches * 25.4;
-
+        let temp = Math.round(parseFloat(data.main.temp));
         const forecastData = {
             cityName: data.name,
             weatherDescription: data.weather[0].main,
+            preciseWeatherDescription: data.weather[0].description,
             wind: data.wind.speed,
             pressure: data.main.pressure,
-            temperature: data.main.temp,
+            temperature: temp,
             humidity: data.main.humidity,
             sunset: formattedSunset,
             sunrise: formattedSunrise,

@@ -62,6 +62,20 @@ if (isset($_SESSION['avatar'])) {
                     <div class="input"><input type="text" id="locationInput" placeholder="Enter a location" spellcheck="false"></div>
                     <div class="location"><button id="get-location-btn" role="button">Get Location</button></div>
                 </div>
+                <dialog id="dialog">
+                    <img src="/public/img/locationwizard.png" alt="">
+                    <p>I've found your location!</p>
+                    <form method="dialog">
+                        <button>OK</button>
+                    </form>
+                </dialog>
+                <dialog id="errorDialog">
+                    <img src="/public/img/locationwiz2.png" alt="">
+                    <p>Sorry, I couldn't find your location.</p>
+                    <form method="errorDialog">
+                        <button>OK</button>
+                    </form>
+                </dialog>
             </div>
             <footer><div class="wrapper-footer"><p>What2Wear Wizard</p><img src="public\img\logo.png" alt=""></div></footer>
         </div>

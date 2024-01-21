@@ -189,6 +189,13 @@ if (isset($_SESSION['avatar'])) {
                     </div>
                 </div>
                 <button id="save-clothes-btn">Save</button>
+                <dialog>
+                    <img src="/public/img/wardrobewizard.png" alt="">
+                    <p>Okay.. I will take your clothes to your wardrobe!</p>
+                    <form method="dialog">
+                        <button>OK</button>
+                    </form>
+                </dialog>
             </div>
             <footer><div class="wrapper-footer"><p>What2Wear Wizard</p><img src="public\img\logo.png" alt=""></div></footer>
         </div>
@@ -263,6 +270,11 @@ if (isset($_SESSION['avatar'])) {
                         userId: <?php echo $_SESSION["id"]; ?>,
                         clothes: clothesIds
                     })
+                })
+                .then(() => {
+                    // Wyświetl okno dialogowe po przypisaniu ubrań do użytkownika
+                    var dialog = document.querySelector('dialog');
+                    dialog.showModal();
                 })
             })
             .catch(error => {
