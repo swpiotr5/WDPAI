@@ -36,7 +36,8 @@ class ForecastRepository extends Repository
             $forecast['rain'],
             $forecast['time'],
             $forecast['isCurrent'],
-            $forecast['user_id']
+            $forecast['user_id'],
+            $forecast['weatherIconUrl']
         );
     }
 
@@ -64,7 +65,8 @@ class ForecastRepository extends Repository
             $forecast['rain'],
             $forecast['time'],
             $forecast['isCurrent'],
-            $forecast['user_id']
+            $forecast['user_id'],
+            $forecast['weatherIconUrl']
         );
     }
 
@@ -94,7 +96,8 @@ class ForecastRepository extends Repository
                 $forecast['rain'],
                 $forecast['time'],
                 $forecast['isCurrent'],
-                $forecast['user_id']
+                $forecast['user_id'],
+                $forecast['weatherIconUrl']
             ));
         }
     
@@ -106,8 +109,8 @@ class ForecastRepository extends Repository
         $stmt = $this->database->connect()->prepare('
         INSERT INTO forecasts (
             "cityName", "weatherDescription", "preciseWeatherDescription", wind, pressure, temperature, humidity, 
-            sunset, sunrise, rain, "time", "isCurrent", "user_id"
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            sunset, sunrise, rain, "time", "isCurrent", "user_id", "weatherIconUrl"
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ');
 
         var_dump($forecast->getIsCurrent());
@@ -133,7 +136,8 @@ class ForecastRepository extends Repository
             $forecast->getTime(),
             // $forecast->getIsCurrent()
             $isCurrent,
-            $forecast->getUser_id()
+            $forecast->getUser_id(),
+            $forecast->getWeatherIconUrl()
         ]);
     }
     

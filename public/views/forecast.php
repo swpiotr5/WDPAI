@@ -56,11 +56,15 @@ if (isset($_SESSION['avatar'])) {
                     <p class="weather-info"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getTemperature')) ? $current_forecast->getTemperature() . '°C' : ''; ?> | <?php echo (isset($current_forecast) && method_exists($current_forecast, 'getPreciseWeatherDescription')) ? $current_forecast->getPreciseWeatherDescription() : ''; ?></p>
                 </div>
                 <div class="temperatures">
-                    <div class="weather-container"><p class="time">Now</p><img src="public\img\weather-cloud.png" alt=""><p class="temperature"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getTemperature')) ? $current_forecast->getTemperature() . '℃' : ''; ?></p></div>
+                    <div class="weather-container">
+                        <p class="time">Now</p>
+                        <img src="<?php echo (isset($current_forecast) && method_exists($current_forecast, 'getWeatherIconUrl')) ? $current_forecast->getWeatherIconUrl() : ''; ?>" alt="">
+                        <p class="temperature"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getTemperature')) ? $current_forecast->getTemperature() . '℃' : ''; ?></p>
+                    </div>
                     <?php for ($i = 0; $i < 5; $i++): ?>
                         <div class="weather-container">
                             <p class="time"><?php echo (isset($future_forecasts[$i]) && method_exists($future_forecasts[$i], 'getTime')) ? $future_forecasts[$i]->getTime() : ''; ?></p>
-                            <img src="public\img\weather-cloud.png" alt="">
+                            <img src="<?php echo (isset($future_forecasts[$i]) && method_exists($future_forecasts[$i], 'getWeatherIconUrl')) ? $future_forecasts[$i]->getWeatherIconUrl() : ''; ?>" alt="">
                             <p class="temperature"><?php echo (isset($future_forecasts[$i]) && method_exists($future_forecasts[$i], 'getTemperature')) ? $future_forecasts[$i]->getTemperature() . '℃' : ''; ?></p>
                         </div>
                     <?php endfor; ?>

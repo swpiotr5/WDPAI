@@ -88,14 +88,14 @@ async function checkWeather(apiUrl) {
         const timezone = data.city.timezone;
         const formattedSunrise = convertUnixTimestampToTime(sunriseTimestamp, timezone);
         const formattedSunset = convertUnixTimestampToTime(sunsetTimestamp, timezone);
-        
         for (const item of data.list) {
             const timestampHour = item.dt;
             const formattedTimestampHour = convertUnixTimestampToTime(timestampHour, timezone);
             const rainInches = item.rain ? item.rain['3h'] : 0;
             const rainMillimeters = rainInches * 25.4;
             let temp = Math.round(parseFloat(item.main.temp));
-            
+            let weatherIcon = item.weather[0].icon;
+            let weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIcon}.png`;
             const forecastData = {
                 cityName: data.city.name,
                 weatherDescription: item.weather[0].main,
@@ -109,6 +109,7 @@ async function checkWeather(apiUrl) {
                 rain: rainMillimeters,
                 time: formattedTimestampHour,
                 isCurrent: false,
+                weatherIconUrl: weatherIconUrl,
             };
 
             await sendWeatherDataToServer(forecastData);
@@ -150,6 +151,8 @@ async function checkCurrentWeather(apiUrl) {
         const rainInches = data.rain ? data.rain['1h'] : 0;
         const rainMillimeters = rainInches * 25.4;
         let temp = Math.round(parseFloat(data.main.temp));
+        let weatherIcon = data.weather[0].icon;
+        let weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIcon}.png`;
         const forecastData = {
             cityName: data.name,
             weatherDescription: data.weather[0].main,
@@ -163,6 +166,7 @@ async function checkCurrentWeather(apiUrl) {
             rain: rainMillimeters,
             time: formattedTimestampHour,
             isCurrent: true,
+            weatherIconUrl: weatherIconUrl,
         };
 
         await sendWeatherDataToServer(forecastData);
