@@ -1,6 +1,8 @@
 <?php
 
-
+namespace repository;
+use PDO;
+use Repository;
 use models\Wardrobe;
 
 require_once 'Repository.php';
@@ -52,5 +54,14 @@ class WardrobeRepository extends Repository {
                 $clothingId
             ]);
         }
+    }
+    public function getClothesByUserId($user_id) {
+        $stmt = $this->database->connect()->prepare('
+            SELECT clothing_id FROM wardrobe WHERE user_id = :user_id
+        ');
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

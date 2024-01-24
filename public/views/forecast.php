@@ -15,6 +15,7 @@ if (isset($_SESSION['avatar'])) {
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,12 +80,20 @@ if (isset($_SESSION['avatar'])) {
                 </div>
                 <div class="clothing-info">
                     <p>clothing suggestions</p>
-                    <div class="clothing-wrapper">                    
-                        <div class="clothing"></div>
-                        <div class="clothing"></div>
-                        <div class="clothing"></div>
-                        <div class="clothing"></div>
+                    <div class="clothing-wrapper">
+                        <?php foreach ($suggestedClothing as $clothingSet): ?>
+                            <?php foreach ($clothingSet['clothing'] as $clothing): ?>
+                                <div class="clothing">
+                                    <img src="public/img/<?php echo strtolower($clothing); ?>.png" alt="<?php echo $clothing; ?>">
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
                     </div>
+                    <div class="clothing-message clothing">
+                            <?php foreach ($suggestedClothing as $clothingSet): ?>
+                                <p><?php echo $clothingSet['message']; ?></p>
+                            <?php endforeach; ?>
+                        </div>
                 </div>
             </div>
             <footer><div class="wrapper-footer"><p>What2Wear Wizard</p><img src="public\img\logo.png" alt=""></div></footer>
