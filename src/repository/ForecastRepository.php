@@ -149,4 +149,18 @@ class ForecastRepository extends Repository
         $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
     }
+
+    public function getForecastsByUserId($user_id)
+    {
+        $stmt = $this->database->connect()->prepare('
+            SELECT f.*, u.username 
+            FROM forecasts f
+            JOIN users u ON f.user_id = u.id
+            WHERE f.user_id = :user_id
+        ');
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

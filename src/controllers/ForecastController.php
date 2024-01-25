@@ -120,6 +120,8 @@ class ForecastController extends AppController
         // Przekazanie obiektu prognozy do widoku
         $this->render('forecast', ['current_forecast' => $current_forecast, 'future_forecasts' => $future_forecasts]);
     }
+
+    
 }
 
 
