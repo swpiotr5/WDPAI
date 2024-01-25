@@ -9,41 +9,49 @@ require_once __DIR__.'/../repository/UserRepository.php';
 class SecurityController extends AppController
 {
     public function login(){
-
         $userRepository = new UserRepository();
-
+    
         if (!$this->isPost()) {
             return $this->render('login');
         }
-
+    
         $username = $_POST["username"];
         $password = $_POST["password"];
-
-        $user = $userRepository->getUser($username);
-
-        if(!$user){
-            return $this->render('login', ['messages' => ['User not exists!']]);
+    
+        // Begin the transaction
+        $userRepository->beginTransaction();
+    
+        try {
+            $user = $userRepository->getUser($username);
+    
+            if(!$user){
+                throw new Exception("User not exists!");
+            }
+    
+            if (!password_verify($password, $user->getPassword())){
+                throw new Exception("Wrong password");
+            }
+    
+            session_start();
+    
+            $_SESSION["id"] = $userRepository->getIdByEmail($user->getEmail());
+            $_SESSION["username"] = $user->getUsername();
+            $_SESSION["email"] = $user->getEmail();
+            $_SESSION["avatar"] = $user->getAvatar();
+    
+            // Commit the transaction if everything succeeds
+            $userRepository->commit();
+    
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/forecast");
+            return;
+        } catch (Exception $e) {
+            // Rollback the transaction if any error occurs
+            $userRepository->rollBack();
+            return $this->render('login', ['messages' => [$e->getMessage()]]);
         }
-
-        if ($user->getUsername() != $username){
-            return $this->render('login', ['messages'=>['User with this username not exists']]);
-        }
-
-        if (!password_verify($password, $user->getPassword())){
-            return $this->render('login', ['messages' => ['Wrong password']]);
-        }
-
-        session_start();
-
-        $_SESSION["id"] = $userRepository->getIdByEmail($user->getEmail());
-        $_SESSION["username"] = $user->getUsername();
-        $_SESSION["email"] = $user->getEmail();
-        $_SESSION["avatar"] = $user->getAvatar();
-
-        $url = "http://$_SERVER[HTTP_HOST]";
-        header("Location: {$url}/forecast");
-        return;
     }
+    
 
     public function logout() {
         session_start();

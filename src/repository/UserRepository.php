@@ -60,17 +60,26 @@ class UserRepository extends Repository
         return (int) $result['user_id'];
     }
 
-    public function addUser(User $user) : void{
-        $stmt = $this->database->connect()->prepare('
-            INSERT INTO users (email, username, password, avatar) VALUES (?, ?, ?, ?)
-        ');
-
-        $stmt->execute([
-            $user->getEmail(),
-            $user->getUsername(),
-            $user->getPassword(),
-            $user->getAvatar()
-        ]);
+    public function addUser(User $user) : void {
+        try {
+            $this->beginTransaction();
+    
+            $stmt = $this->database->connect()->prepare('
+                INSERT INTO users (email, username, password, avatar) VALUES (?, ?, ?, ?)
+            ');
+    
+            $stmt->execute([
+                $user->getEmail(),
+                $user->getUsername(),
+                $user->getPassword(),
+                $user->getAvatar()
+            ]);
+    
+            $this->commit();
+        } catch (Exception $e) {
+            $this->rollBack();
+            throw $e;
+        }
     }
     public function updateAvatar(int $userId, string $avatarUrl): void {
         $stmt = $this->database->connect()->prepare('
@@ -81,6 +90,24 @@ class UserRepository extends Repository
         $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
     
         $stmt->execute();
+    }
+    public function beginTransaction() {
+        $stmt = $this->database->connect();
+        $stmt->beginTransaction();
+    }
+    
+    public function commit() {
+        $stmt = $this->database->connect();
+        if ($stmt->inTransaction()) {
+            $stmt->commit();
+        }
+    }
+    
+    public function rollBack() {
+        $stmt = $this->database->connect();
+        if ($stmt->inTransaction()) {
+            $stmt->rollBack();
+        }
     }
 }
 
