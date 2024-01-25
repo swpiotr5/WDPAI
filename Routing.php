@@ -6,6 +6,7 @@ require_once 'src/controllers/ForecastController.php';
 require_once 'src/controllers/ClothingController.php';
 require_once 'src/controllers/WardrobeController.php';
 require_once 'src/controllers/WeatherController.php';
+require_once 'src/controllers/ActivityController.php';
 
 class Routing {
 

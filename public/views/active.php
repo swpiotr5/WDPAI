@@ -53,25 +53,14 @@ if (isset($_SESSION['avatar'])) {
             <div class="text-info">
                 <p>proposed activity</p>
             </div>
-            <div class="activities">
-                <div class="activity"></div>
-                <div class="activity"></div>
-                <div class="activity"></div>
-                <div class="activity"></div>
-                <div class="activity"></div>
-                <div class="activity"></div>
+            <div class="activities" style="<?php echo !isset($suggestedActivities) ? 'display: none;' : ''; ?>">
+            <?php foreach ($suggestedActivities as $activity): ?>
+                <div class="activity"><p><?php echo $activity; ?></p></div>
+            <?php endforeach; ?>
             </div>
-            <div class="note-info">
-                <div class="note">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt quos tenetur ab illo est totam
-                        consequuntur nisi? Hic sint nulla, quaerat unde ab obcaecati nesciunt vero quod, repellendus
-                        labore error!
-                        Tempore magnam voluptatum sed voluptate recusandae nesciunt et perspiciatis asperiores
-                        expedita, aut ipsum cupiditate incidunt quam. Enim ex aperiam ut quisquam ratione aut iusto?
-                        Rerum nemo dicta dolore ducimus magnam!
-                    </p>
-                </div>
-            </div>
+            <div class="textinfo" style="<?php echo !isset($suggestedActivities) ? 'display: none;' : ''; ?>"><p><?php echo $message?></p></div>
+            <div class="error-display" style="<?php echo isset($suggestedActivities) ? 'display: none;' : ''; ?>"><p class="errortext" style="color: aliceblue; font-size: 1.5rem; font-family: 'Roboto', sans-serif; text-align: center; margin-top: 50px;">PLEASE SPECIFY YOUR LOCATION FIRST</p><img src="public\img\wizard-waiting.png" alt=""></div>
+
 
         </div>
         <footer><div class="wrapper-footer"><p>What2Wear Wizard</p><img src="public\img\logo.png" alt=""></div></footer>

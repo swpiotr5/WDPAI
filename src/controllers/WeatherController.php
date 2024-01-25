@@ -100,8 +100,8 @@ class WeatherController extends AppController
         $user_id = $_SESSION['id'];
         $current_forecast = $this->forecastRepository->getCurrentForecast($user_id);
     
-        if ($current_forecast === null) {
-            $this->render('error', ['message' => 'No current forecast available']);
+        if ($current_forecast == null) {
+            $this->render('forecast', ['current_forecast' => null, 'future_forecasts' => null, 'suggestedClothing' => null]);
             return;
         }
     
@@ -232,7 +232,7 @@ class WeatherController extends AppController
         } elseif ($temperature >= 20) {
             $bottomClothing = "shorts";
             $upperClothing = ($rain) ? "raincoat" : "tshirt";
-            $additionalClothing = "sweatshirt";
+            $additionalClothing = "unknown";
             $baseLayer = "shirt";
         
             $clothing = [$additionalClothing, $baseLayer, $upperClothing, $bottomClothing];

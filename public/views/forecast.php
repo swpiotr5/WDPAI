@@ -51,12 +51,13 @@ if (isset($_SESSION['avatar'])) {
                 <li><a href="wardrobe">wardrobe</a></li>
                 <li><a href="userpage">user</a></li>
             </div>
-            <div class="main-section">
-                <div class="banner">
+            <div class="main-section" >
+                <div class="error-display" style="<?php echo (isset($current_forecast) || isset($future_forecasts) || isset($suggestedClothing)) ? 'display: none;' : ''; ?>"><p class="errortext" style="color: aliceblue; font-size: 1.5rem; font-family: 'Roboto', sans-serif; text-align: center; margin-top: 50px;">PLEASE SPECIFY YOUR LOCATION FIRST</p><img src="public\img\wizard-waiting.png" alt=""></div>
+                <div class="banner" style="<?php echo (!isset($current_forecast) || !isset($future_forecasts) || !isset($suggestedClothing)) ? 'display: none;' : ''; ?>">
                     <p class="city"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getCityName')) ? $current_forecast->getCityName() : ''; ?></p>
                     <p class="weather-info"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getTemperature')) ? $current_forecast->getTemperature() . '°C' : ''; ?> | <?php echo (isset($current_forecast) && method_exists($current_forecast, 'getPreciseWeatherDescription')) ? $current_forecast->getPreciseWeatherDescription() : ''; ?></p>
                 </div>
-                <div class="temperatures">
+                <div class="temperatures" style="<?php echo (!isset($current_forecast) || !isset($future_forecasts) || !isset($suggestedClothing)) ? 'display: none;' : ''; ?>">
                     <div class="weather-container">
                         <p class="time">Now</p>
                         <img src="<?php echo (isset($current_forecast) && method_exists($current_forecast, 'getWeatherIconUrl')) ? $current_forecast->getWeatherIconUrl() : ''; ?>" alt="">
@@ -70,7 +71,7 @@ if (isset($_SESSION['avatar'])) {
                         </div>
                     <?php endfor; ?>
                 </div>
-                <div class="other-parameters">
+                <div class="other-parameters" style="<?php echo (!isset($current_forecast) || !isset($future_forecasts) || !isset($suggestedClothing)) ? 'display: none;' : ''; ?>">
                     <div class="parameter sunrise"><img src="public\img\sunrise.png" alt=""><p class="time"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getSunrise')) ? $current_forecast->getSunrise() : ''; ?></p></div>
                     <div class="parameter sunset"><img src="public\img\sunset.png" alt=""><p class="time"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getSunset')) ? $current_forecast->getSunset() : ''; ?></p></div>
                     <div class="parameter wind-speed"><img src="public\img\wind.png" alt=""><p class="speed"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getWind')) ? $current_forecast->getWind() . 'm/s' : ''; ?></p></div>
@@ -78,24 +79,33 @@ if (isset($_SESSION['avatar'])) {
                     <div class="parameter rain-chance"><img src="public\img\rain.png" alt=""><p class="rain-text"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getRain')) ? $current_forecast->getRain() . 'mm' : ''; ?></p></div>
                     <div class="parameter pressure"><img src="public\img\pressure.png" alt=""><p class="pressure-text"><?php echo (isset($current_forecast) && method_exists($current_forecast, 'getPressure')) ? $current_forecast->getPressure() . 'hPa' : ''; ?></p></div>
                 </div>
-                <div class="clothing-info">
+                <div class="clothing-info" style="<?php echo (!isset($current_forecast) || !isset($future_forecasts) || !isset($suggestedClothing)) ? 'display: none;' : ''; ?>">
                     <p>clothing suggestions</p>
                     <div class="clothing-wrapper">
-                        <?php foreach ($suggestedClothing as $clothingSet): ?>
-                            <?php foreach ($clothingSet['clothing'] as $clothing): ?>
-                                <div class="clothing">
-                                    <img src="public/img/<?php echo strtolower($clothing); ?>.png" alt="<?php echo $clothing; ?>">
-                                </div>
+                        <?php if (isset($suggestedClothing)): ?>
+                            <?php foreach ($suggestedClothing as $clothingSet): ?>
+                                <?php if (isset($clothingSet['clothing'])): ?>
+                                    <?php foreach ($clothingSet['clothing'] as $clothing): ?>
+                                        <div class="clothing">
+                                            <img src="public/img/<?php echo isset($clothing) ? strtolower($clothing) : ''; ?>.png" alt="<?php echo isset($clothing) ? $clothing : ''; ?>">
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             <?php endforeach; ?>
-                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                     <div class="clothing-message clothing">
+                        <?php if (isset($suggestedClothing)): ?>
                             <?php foreach ($suggestedClothing as $clothingSet): ?>
-                                <p><?php echo $clothingSet['message']; ?></p>
+                                <?php if (isset($clothingSet['message'])): ?>
+                                    <p><?php echo $clothingSet['message']; ?></p>
+                                <?php endif; ?>
                             <?php endforeach; ?>
-                        </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
+            
             <footer><div class="wrapper-footer"><p>What2Wear Wizard</p><img src="public\img\logo.png" alt=""></div></footer>
         </div>
 
