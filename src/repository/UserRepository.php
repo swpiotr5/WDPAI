@@ -66,7 +66,29 @@ class UserRepository extends Repository
     }
 
     public function deleteUser(string $username): void{
-        $stmt = $this->database->connect()->prepare('DELETE FROM public.users WHERE username = :username');
+        $connection = $this->database->connect();
+    
+        $stmt = $connection->prepare('
+            DELETE FROM wardrobe WHERE user_id = (SELECT user_id FROM users WHERE username = :username);
+        ');
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+    
+        $stmt = $connection->prepare('
+            DELETE FROM forecasts WHERE user_id = (SELECT user_id FROM users WHERE username = :username);
+        ');
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+    
+        $stmt = $connection->prepare('
+            DELETE FROM user_details WHERE user_id = (SELECT user_id FROM users WHERE username = :username);
+        ');
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+    
+        $stmt = $connection->prepare('
+            DELETE FROM users WHERE username = :username;
+        ');
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->execute();
     }
