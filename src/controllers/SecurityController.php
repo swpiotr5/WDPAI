@@ -129,4 +129,40 @@ class SecurityController extends AppController
     
         return $this->render('userpage', ['messages' => ['No avatar data received']]);
     }
+    public function addNameToDatabase(){
+        $userRepository = new UserRepository();
+
+        if (!$this->isPost()) {
+            return $this->render('userpage');
+        }
+
+        $firstName = $_POST["firstName"];
+        $lastName = $_POST["lastName"];
+
+        $userRepository->addNameToDatabase($firstName, $lastName, $_SESSION["id"]);
+
+        return $this->render('userpage', ['messages' => ['Name has been successfully added!']]);
+    }
+    public function userpage(): void {
+        if ($_SESSION["username"] === "admin") {
+            $userRepository = new UserRepository();
+            $users = $userRepository->getAllUsers();
+            $this->render('userpage', ['users' => $users]);
+        } else {
+            $this->render('userpage');
+        }
+    }
+    public function deleteUser(){
+        $userRepository = new UserRepository();
+
+        if (!$this->isPost()) {
+            return $this->render('userpage');
+        }
+
+        $user = $_POST["user"];
+
+        $userRepository->deleteUser($user);
+
+        return $this->render('userpage', ['messages' => ['User has been successfully deleted!']]);
+    }
 }
